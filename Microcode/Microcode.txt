@@ -50,3 +50,9 @@ PRINT_reg:
     fromRAM, toRegRead
     fromReg, toNumDisplay, incIP, endMP
     
+CMP_reg_const:
+    fromRAM, toRegRead, incIP
+    fromReg, toALU_A, ALU=SUB
+    fromRAM, toALU_B, incIP, endMP
+
+    
