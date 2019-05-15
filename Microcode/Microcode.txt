@@ -54,5 +54,8 @@ CMP_reg_const:
     fromRAM, toRegRead, incIP
     fromReg, toALU_A, ALU=SUB
     fromRAM, toALU_B, incIP, endMP
-
     
+SHL_reg:
+    fromRAM, toRegRead, toRegWrite
+    fromReg, toALU_A, toALU_B, ALU=ADD
+    fromALU, toWriteReg, incIP, endMP
