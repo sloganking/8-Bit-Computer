@@ -32,3 +32,13 @@ JNC_[const]:
 
 JC_[const]:
     NOT, if(carry), incIP, endMP
+
+ADD_reg_reg:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=ADD
+    fromRAM, toRegRead
+    fromReg, toALU_B
+    fromALU, toWriteReg, incIP, endMP
+    
+
+    
