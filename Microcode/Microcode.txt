@@ -45,3 +45,8 @@ ADD_reg_const:
     fromReg, toALU_A, ALU=ADD
     fromRAM, toALU_B
     fromALU, toWriteReg, incIP, endMP
+    
+PRINT_reg:
+    fromRAM, toRegRead
+    fromReg, toNumDisplay, incIP, endMP
+    
