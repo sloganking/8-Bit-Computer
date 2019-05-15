@@ -70,4 +70,7 @@ NOT_reg:
     fromReg, toALU_B, ALU=NOT_B
     fromALU, toWriteReg, incIP, endMP
     
-    
+SHR_reg:
+    fromRAM, toRegRead, toRegWrite
+    fromReg, toALU_B, ALU=SHR_B
+    fromALU, toWriteReg, incIP, endMP
