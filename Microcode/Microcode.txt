@@ -21,3 +21,8 @@ INC_reg:
     fromRAM, toRegRead, toRegWrite
     fromReg, toALU_B, ALU=INC_B
     fromALU, toWriteReg, incIP, endMP
+    
+DEC_reg:
+    fromRAM, toRegRead, toRegWrite
+    fromReg, toALU_B, ALU=DEC_B
+    fromALU, toWriteReg, incIP, endMP
