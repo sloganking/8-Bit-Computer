@@ -57,5 +57,5 @@ ALU=NOR
 ## Other
 
 ```
-incIP       ; increments the instruction pointer
+incIP       ; increments the instruction pointer "fromRAM" always returns data from the address inside the instruction pointer unless "fromRamAddr" is on
 endMP       ; ends Micro Program
