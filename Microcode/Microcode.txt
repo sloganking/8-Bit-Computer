@@ -65,6 +65,9 @@ MOV_reg_[const]:
     fromRAM, toRamRead
     fromRAM, fromRamAddr, toWriteReg, incIP, endMP
     
-
+NOT_reg:
+    fromRAM, toRegRead, toRegWrite
+    fromReg, toALU_B, ALU=NOT_B
+    fromALU, toWriteReg, incIP, endMP
     
     
