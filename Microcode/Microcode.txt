@@ -1,0 +1,6 @@
+;Start of Micorcode
+
+HLT:
+    HLT
+
+JMP_const
