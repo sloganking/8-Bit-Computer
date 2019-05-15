@@ -88,3 +88,12 @@ SUB_reg_reg:
     fromRAM, toRegRead
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
+
+NAND_reg_reg:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=NAND
+    fromRAM, toRegRead
+    fromReg, toALU_B
+    fromALU, toWriteReg, incIP, endMP
+    
+    
