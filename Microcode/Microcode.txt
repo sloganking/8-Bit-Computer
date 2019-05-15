@@ -12,3 +12,8 @@ MOV_reg_const:
     fromRAM, toRegWrite, incIP
     fromRAM, toWriteReg, incIP, endMP
     
+MOV_reg_reg:
+    fromRAM, toRegWrite, incIP
+    fromRAM, toRegRead
+    fromReg, toWriteReg, incIP, endMP
+    
