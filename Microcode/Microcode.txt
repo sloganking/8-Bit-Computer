@@ -102,3 +102,10 @@ XOR_reg_reg:
     fromRAM, toRegRead
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
+    
+XNOR_reg_reg:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=XNOR
+    fromRAM, toRegRead
+    fromReg, toALU_B
+    fromALU, toWriteReg, incIP, endMP
