@@ -5,7 +5,7 @@ Microcode.txt contains the microcode for the CPU's implemented instruction set
 ## From Instructions
 Load data to the central bus. Only one from instruction should be activated per micro instruction.
 ```
-fromReg   ;loads contents of selected register onto bus
+fromReg         ;loads contents of selected register onto bus
 fromALU         ;puts ALU output onto bus
 fromIP          ;loads contents of intruction pointer onto bus
 fromRAM         ;loads contents of RAM at IP address onto bus
