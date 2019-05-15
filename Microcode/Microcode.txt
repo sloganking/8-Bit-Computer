@@ -40,5 +40,8 @@ ADD_reg_reg:
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
     
-
-    
+ADD_reg_const:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=ADD
+    fromRAM, toALU_B
+    fromALU, toWriteReg, incIP, endMP
