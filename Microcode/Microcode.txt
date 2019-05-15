@@ -116,3 +116,10 @@ OR_reg_reg:
     fromRAM, toRegRead
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
+    
+NOR_reg_reg:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=NOR
+    fromRAM, toRegRead
+    fromReg, toALU_B
+    fromALU, toWriteReg, incIP, endMP
