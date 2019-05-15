@@ -22,7 +22,7 @@ toWriteReg        ; saves contents from bus to register specified by the regWrit
 toRegWrite        ; determins which register will be written to
 toRegRead         ; determines which register will be read from
 toRamRead         ; used to grab data from a specific ram address
-toInstrucDecoder
+toID              ; Instruction Decoder
 ```
 
 ## Conditional instructions
