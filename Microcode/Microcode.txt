@@ -7,3 +7,8 @@ HLT:
 
 JMP_const:
     if(ujump), incIP, fromRAM, endMP
+
+MOV_reg_const:
+    fromRAM, toRegWrite, incIP
+    fromRAM, toWriteReg, incIP, endMP
+    
