@@ -1,6 +1,6 @@
 # Microcode
 
-Microcode.txt contains the microcode for the CPU's implemented instruction set
+[Microcode.txt](./Microcode.txt) contains the microcode for the CPU's implemented instruction set
 
 ## From Instructions
 Load data to the central bus. Only one from instruction should be activated per micro instruction.
