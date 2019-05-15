@@ -1,6 +1,9 @@
-;Start of Micorcode
+;Header instruction, executed at the start of all micro programs
+Header:
+    fromRAM, toID, incIP
 
 HLT:
     HLT
 
-JMP_const
+JMP_const:
+    if(ujump), incIP, fromRAM, endMP
