@@ -17,3 +17,7 @@ MOV_reg_reg:
     fromRAM, toRegRead
     fromReg, toWriteReg, incIP, endMP
     
+INC_reg:
+    fromRAM, toRegRead, toRegWrite
+    fromReg, toALU_B, ALU=INC_B
+    fromALU, toWriteReg, incIP, endMP
