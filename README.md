@@ -26,4 +26,5 @@ ND        7-segment number display
 ID        Instruction Decoder given assembly instructions to be executed
 IP        Instruction Pointer which points to the instruction to be executed in memory
 RAM       Memory which holds program instructions and data
+IF        determins if a selected flag is true or false and notifies the Instruction Pointer
 ```
