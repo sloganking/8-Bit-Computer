@@ -30,6 +30,7 @@ there are multiple variants of the ``if()`` instruction. the if instruction caus
 ```
 if(zero)
 if(carry)
+if(ujump)       ; causes an unconditional jump
 ```
 
 ## Conditional modifiers
