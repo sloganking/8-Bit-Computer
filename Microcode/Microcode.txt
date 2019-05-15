@@ -74,3 +74,11 @@ SHR_reg:
     fromRAM, toRegRead, toRegWrite
     fromReg, toALU_B, ALU=SHR_B
     fromALU, toWriteReg, incIP, endMP
+    
+AND_reg_reg:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=AND
+    fromRAM, toRegRead
+    fromReg, toALU_B
+    fromALU, toWriteReg, incIP, endMP
+    
