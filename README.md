@@ -7,3 +7,12 @@ The design of this CPU was heavily inspired by ideas from both Ben Eater's ["Bui
 
 ## Block Diagram
 ![Diagram](https://i.imgur.com/lU1ykk9.png)
+
+## Key
+```
+Blue:     component
+Red:      register controlled by micro code which saves data from bus, and constantly outputs it into the component to it's right
+Green:    input label
+Purple:   resticts or allows data to flow from a component, to the central bus
+Yellow:   8-Bit data bus
+```
