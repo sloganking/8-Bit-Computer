@@ -59,3 +59,12 @@ SHL_reg:
     fromRAM, toRegRead, toRegWrite
     fromReg, toALU_A, toALU_B, ALU=ADD
     fromALU, toWriteReg, incIP, endMP
+
+MOV_reg_[const]:
+    fromRAM, toRegWrite, incIP
+    fromRAM, toRamRead
+    fromRAM, fromRamAddr, toWriteReg, incIP, endMP
+    
+
+    
+    
