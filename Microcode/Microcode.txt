@@ -82,3 +82,9 @@ AND_reg_reg:
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
     
+SUB_reg_reg:
+    fromRAM, toRegRead, toRegWrite, incIP
+    fromReg, toALU_A, ALU=SUB
+    fromRAM, toRegRead
+    fromReg, toALU_B
+    fromALU, toWriteReg, incIP, endMP
