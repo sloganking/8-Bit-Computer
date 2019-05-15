@@ -15,6 +15,7 @@ Red:      register controlled by micro code which saves data from bus, and const
 Green:    input label
 Purple:   resticts or allows data to flow from a component, to the central bus
 Yellow:   8-Bit data bus
+Orange:   Multiplexer
 ```
 
 ### Components
