@@ -26,3 +26,9 @@ DEC_reg:
     fromRAM, toRegRead, toRegWrite
     fromReg, toALU_B, ALU=DEC_B
     fromALU, toWriteReg, incIP, endMP
+
+JNC_[const]:
+    if(carry), incIP, endMP
+
+JC_[const]:
+    NOT, if(carry), incIP, endMP
