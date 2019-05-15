@@ -2,7 +2,7 @@
 
 Microcode.txt contains the microcode for the CPU's implemented instruction set
 
-## Micro From Instructions
+## From Instructions
 Load data to the central bus. Only one from instruction should be activated per micro instruction.
 
 
