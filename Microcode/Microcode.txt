@@ -123,3 +123,9 @@ NOR_reg_reg:
     fromRAM, toRegRead
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
+    
+JNZ_[const]:
+    if(zero), incIP, endMP
+
+JZ_[const]:
+    NOT, if(zero), incIP, endMP
