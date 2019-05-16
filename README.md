@@ -1,4 +1,4 @@
-# 8-Bit CPU Documentation
+# 8-Bit CPU Documentation [WIP]
 
 This project aims to document how my 8-bit CPU works, to provide example programs that is can run, and to provide visual examples of those programs running.
 
