@@ -1,6 +1,8 @@
-MOV A, 0
+    MOV A, 0
 
-.loop:
-PRINT A
-ADD A, 1
-JMP .loop
+.countLoop:
+    PRINT A
+    INC A
+    CMP A, 11
+    JNC .countLoop
+    HLT
