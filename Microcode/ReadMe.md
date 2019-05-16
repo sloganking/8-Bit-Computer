@@ -1,6 +1,6 @@
 # Microcode
 
-[Microcode.txt](./Microcode.txt) contains the microcode for the CPU's implemented instruction set
+[Microcode.txt](./Microcode.txt) contains the microcode for the CPU's implemented instruction set. Microinstructions may be written in any order, the micro assembler will take care of the rest.
 
 ## From Instructions
 Load data to the central bus. Only one from instruction should be activated per micro instruction.
