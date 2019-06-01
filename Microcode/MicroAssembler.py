@@ -53,7 +53,7 @@ with open(f"./Microcode.txt") as input:
 
                     # if last char of first token is ":", instruction detected
                     if tokens[0][len(tokens[0]) - 1] == ":":
-                        strToPrint = "\"" + \
+                        strToPrint = "\t\"" + \
                             tokens[0][:-1] + "\":" + f"\"{microAddress}\""
                         if thereIsAnotherInsturction():
                             strToPrint = strToPrint + ","
