@@ -55,13 +55,11 @@ with open(f"./Microcode.txt") as input:
                     if tokens[0][len(tokens[0]) - 1] == ":":
                         strToPrint = "\"" + \
                             tokens[0][:-1] + "\":" + f"\"{microAddress}\""
-
-                        tokens2 = ""
-                        # Add comma if
                         if thereIsAnotherInsturction():
                             strToPrint = strToPrint + ","
+                    # assemble micro instruction
                     else:
-                        microAddress += 1
+                        microAddress += 1   # keeps track of addresses for instrucToBinary.json
 
             # If something to print
             if strToPrint != "":
