@@ -18,16 +18,26 @@ def removeAllFilesInDirectory(directory):
         os.remove(f"{directory}{onlyfiles[i]}")
 
 
-# Start of main program
-# ===========================================================================
+def thereIsAnotherInsturction():
+    x2 = x + 1
+    while x2 < len(content):
 
+        tokens2 = str.split(content[x2])
+        if len(tokens2) > 0:
+            if tokens2[0][len(tokens2[0]) - 1] == ":":
+                return True
+        x2 = x2 + 1
+    return False
+
+
+    # Start of main program
+    # ===========================================================================
 removeAllFilesInDirectory("./Output/")
 
 
 with open(f"./Microcode.txt") as input:
     with open(f"./Output/instrucToBinary.json", "w") as output:
-        content = input.readlines()\
-
+        content = input.readlines()
 
         # Start JSON object
         print(f"{{", file=output)
@@ -39,11 +49,24 @@ with open(f"./Microcode.txt") as input:
 
             if len(tokens) > 0:
                 # if first char of string is ";", ignore line
-                if tokens[0][0] == ";":
-                    print("test")
-                # if last char of first token is ":", instruction detected
-                elif tokens[0][len(tokens[0]) - 1] == ":":
-                    print("is :")
+                if tokens[0][0] != ";":
+
+                    # if last char of first token is ":", instruction detected
+                    if tokens[0][len(tokens[0]) - 1] == ":":
+                        strToPrint = "\"" + \
+                            tokens[0][:-1] + "\":" + f"\"{microAddress}\""
+
+                        tokens2 = ""
+                        # Add comma if
+                        if thereIsAnotherInsturction():
+                            strToPrint = strToPrint + ","
+                    else:
+                        microAddress += 1
+
+            # If something to print
+            if strToPrint != "":
+                strToPrint = f"{strToPrint}"
+                print(f"{strToPrint}", file=output)
 
         # End JSON object
         print(f"}}", file=output)
