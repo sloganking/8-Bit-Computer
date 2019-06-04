@@ -46,7 +46,8 @@ def returnType(token):
 
 removeAllFilesInDirectory("./Output/")
 
-with open(f"./instrucToBinary.json") as input:
+with open(f"./instrucToBinary.json") as json_data:
+    instrucToBinary = json.load(json_data)
     with open(f"./Output/machineCode.json", "w") as output:
         content = input.readlines()
         
