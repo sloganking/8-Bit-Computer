@@ -30,8 +30,9 @@ def thereIsAnotherInsturction():
     return False
 
 
-    # Start of main program
-    # ===========================================================================
+# Start of main program
+# ===========================================================================
+
 removeAllFilesInDirectory("./Output/")
 
 

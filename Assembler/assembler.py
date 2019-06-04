@@ -20,6 +20,15 @@ def removeAllFilesInDirectory(directory):
 
 removeAllFilesInDirectory("./Output/")
 
-with open(f"./Microcode.txt") as input:
-    with open(f"./Output/instrucToBinary.json", "w") as output:
+with open(f"./instrucToBinary.json") as input:
+    with open(f"./Output/machineCode.json", "w") as output:
         content = input.readlines()
+
+        testInt = 100
+        print(isinstance(testInt, int))
+
+         # Start JSON object
+        print(f"{{", file=output)
+
+        # End JSON object
+        print(f"}}", file=output)
