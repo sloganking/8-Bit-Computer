@@ -15,6 +15,32 @@ def removeAllFilesInDirectory(directory):
     for i in range(0, len(onlyfiles)):
         os.remove(f"{directory}{onlyfiles[i]}")
 
+def RepresentsInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def returnType(token):
+    regCharacters = ["A","B","C","D"]
+    isAddress = False
+    if token.startswith('[') and token.endswith(']'):
+        isAddress = True
+        token = token.replace("[", "")
+        token = token.replace("]", "")
+    # print("token:   " + token)
+    if RepresentsInt(token):
+        if isAddress:
+            return "[const]"
+        else: 
+            return "const"
+    elif len(token) == 1 and token in regCharacters:
+        if isAddress:
+            return "[reg]"
+        else:
+            return "reg"
+
 # Start of main program
 # ===========================================================================
 
@@ -23,9 +49,9 @@ removeAllFilesInDirectory("./Output/")
 with open(f"./instrucToBinary.json") as input:
     with open(f"./Output/machineCode.json", "w") as output:
         content = input.readlines()
-
-        testInt = 100
-        print(isinstance(testInt, int))
+        
+        testToken = "[B]"
+        returnType(testToken)
 
          # Start JSON object
         print(f"{{", file=output)
