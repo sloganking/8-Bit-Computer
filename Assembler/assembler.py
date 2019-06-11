@@ -78,6 +78,22 @@ def getListOfLabels():
         return listOfLabels
 
 
+def getLabelNumbers():
+    labelNumbers = []
+    with open(f"./test.asm") as labelInput:
+        currentByte = 0
+        labelContent = labelInput.readlines()
+        for lx in range(0, len(labelContent)):
+
+            labelTokens = str.split(labelContent[lx])
+            if len(labelTokens) > 0:
+                if str(labelTokens[0][-1:]) == ":":
+                    labelNumbers.append(currentByte)
+                elif instrucToBinary(tokensToInstruc(labelTokens)):
+                    currentByte += len(labelTokens)
+    return labelNumbers
+
+
 def isALabel(string):
     if string in listOfLabels:
         return True
