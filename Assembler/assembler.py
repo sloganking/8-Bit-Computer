@@ -138,6 +138,7 @@ with open(f"./test.asm") as input:
     with open(f"./Output/machineCode.bin", "w") as output:
         content = input.readlines()
         listOfLabels = getListOfLabels()
+        labelNumbers = getLabelNumbers()
         machineCodeBytes = bytearray()
 
         for x in range(0, len(content)):
