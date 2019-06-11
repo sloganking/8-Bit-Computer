@@ -27,10 +27,10 @@ DEC_reg:
     fromReg, toALU_B, ALU=DEC_B
     fromALU, toWriteReg, incIP, endMP
 
-JNC_[const]:
+JNC_const:
     if(carry), incIP, endMP
 
-JC_[const]:
+JC_const:
     NOT, if(carry), incIP, endMP
 
 ADD_reg_reg:
@@ -124,8 +124,8 @@ NOR_reg_reg:
     fromReg, toALU_B
     fromALU, toWriteReg, incIP, endMP
     
-JNZ_[const]:
+JNZ_const:
     if(zero), incIP, endMP
 
-JZ_[const]:
+JZ_const:
     NOT, if(zero), incIP, endMP
