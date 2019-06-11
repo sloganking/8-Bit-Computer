@@ -146,14 +146,7 @@ with open(f"./test.asm") as input:
             instruc = tokensToInstruc(tokens)
             instructionBytes = []
 
-            # print("tokens:      " + str(tokens))
-            # print(instruc)
-            # print("isAnInstruction:     " + str(instrucToBinary(instruc)))
-            # print(machineCodeBytes)
-            # print()
-
             if instrucToBinary(tokensToInstruc(tokens)):
-                # print(f"{instrucToBinary(tokensToInstruc(tokens))}", file=output)
                 machineCodeBytes.append(
                     int(instrucToBinary(tokensToInstruc(tokens))))
                 if len(tokens) > 1:
