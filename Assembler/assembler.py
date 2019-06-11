@@ -145,10 +145,11 @@ with open(f"./test.asm") as input:
             tokens = str.split(content[x])
             instruc = tokensToInstruc(tokens)
 
-            print("tokens:      " + str(tokens))
-            print(instruc)
-            print("isAnInstruction:     " + str(instrucToBinary(instruc)))
-            print()
+            # print("tokens:      " + str(tokens))
+            # print(instruc)
+            # print("isAnInstruction:     " + str(instrucToBinary(instruc)))
+            # print(machineCodeBytes)
+            # print()
 
             instructionBytes = []
             if instrucToBinary(tokensToInstruc(tokens)):
