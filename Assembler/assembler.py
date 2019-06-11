@@ -109,6 +109,17 @@ def instrucToBinary(string):
         except:
             return False
 
+
+def regToBinary(reg):
+    reg = reg.replace(",", "")
+    if reg == "A":
+        return 0
+    elif reg == "B":
+        return 1
+    elif reg == "C":
+        return 2
+    elif reg == "D":
+        return 3
     # Start of main program
     # ===========================================================================
 
