@@ -30,6 +30,9 @@ def returnType(token):
         isAddress = True
         token = token.replace("[", "")
         token = token.replace("]", "")
+
+    if "," in token:
+        token = token.replace(",", "")
     # print("token:   " + token)
     if RepresentsInt(token):
         if isAddress:
@@ -41,6 +44,42 @@ def returnType(token):
             return "[reg]"
         else:
             return "reg"
+    elif isALabel(token):
+        if isAddress:
+            return "[const]"
+        else: 
+            return "const"
+
+def tokensToInstruc(tokens):
+    instruc = ""
+    if len(tokens) > 0:
+        instruc = instruc + tokens[0]
+    if len(tokens) > 1:
+        instruc = instruc + "_" + returnType(tokens[1])
+    if len(tokens) > 2:
+        instruc = instruc + "_" + returnType(tokens[2])
+    return instruc
+
+def getListOfLabels():
+    with open(f"./test.asm") as labelInput:
+        listOfLabels = []
+        labelContent = labelInput.readlines()
+        for lx in range(0, len(labelContent)):
+            labelTokens = str.split(labelContent[lx])
+            if len(labelTokens) > 0:
+                labelTokens = str.split(labelContent[lx])
+                # print("token[0]:     " + str(labelTokens[0]))
+                # print("end:     " + str(labelTokens[0][-1:]))
+                if str(labelTokens[0][-1:]) == ":":
+                    # print("true======================")
+                    listOfLabels.append(labelTokens[0].replace(":", ""))
+        return listOfLabels
+
+def isALabel(string):
+    if string in listOfLabels:
+        return True
+    else:
+        return False
 
 # Start of main program
 # ===========================================================================
@@ -53,22 +92,19 @@ with open(f"./instrucToBinary.json") as json_data:
         with open(f"./Output/machineCode.json", "w") as output:
             content = input.readlines()
             
-            # testToken = "12"
-            # print(returnType(testToken))
+            listOfLabels = getListOfLabels()
+            
+            # print("listOfLabels:       " + str(listOfLabels))
 
             for x in range(0, len(content)):
                 tokens = str.split(content[x])
                 instruc = ""
 
-                if len(tokens) > 0:
-                    instruc = instruc + tokens[0]
-
+                print("tokens:      " + str(tokens))
+                instruc = tokensToInstruc(tokens)
                 print(instruc)
-
+                print()
             
-
-
-
             # Start JSON object
             print(f"{{", file=output)
 
