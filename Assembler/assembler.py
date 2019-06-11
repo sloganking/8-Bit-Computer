@@ -73,7 +73,6 @@ def getListOfLabels():
         for lx in range(0, len(labelContent)):
             labelTokens = str.split(labelContent[lx])
             if len(labelTokens) > 0:
-                labelTokens = str.split(labelContent[lx])
                 if str(labelTokens[0][-1:]) == ":":
                     listOfLabels.append(labelTokens[0].replace(":", ""))
         return listOfLabels
