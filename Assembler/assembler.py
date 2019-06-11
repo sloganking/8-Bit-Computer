@@ -104,25 +104,33 @@ def instrucToBinary(string):
 
 removeAllFilesInDirectory("./Output/")
 
-with open(f"./instrucToBinary.json") as json_data:
-    instrucToBinary = json.load(json_data)
-    with open(f"./test.asm") as input:
-        with open(f"./Output/machineCode.json", "w") as output:
-            content = input.readlines()
-            listOfLabels = getListOfLabels()
+with open(f"./test.asm") as input:
+    with open(f"./Output/machineCode.bin", "w") as output:
+        content = input.readlines()
+        listOfLabels = getListOfLabels()
+        machineCodeBytes = bytearray()
 
-            # print("listOfLabels:       " + str(listOfLabels))
+        for x in range(0, len(content)):
+            tokens = str.split(content[x])
+            instruc = tokensToInstruc(tokens)
 
-            for x in range(0, len(content)):
-                tokens = str.split(content[x])
+            print("tokens:      " + str(tokens))
+            print(instruc)
+            print("isAnInstruction:     " + str(instrucToBinary(instruc)))
+            print()
 
-                print("tokens:      " + str(tokens))
-                instruc = tokensToInstruc(tokens)
-                print(instruc)
-                print()
+            instructionBytes = []
+            if instrucToBinary(tokensToInstruc(tokens)):
+                # print(f"{instrucToBinary(tokensToInstruc(tokens))}", file=output)
+                machineCodeBytes.append(
+                    int(instrucToBinary(tokensToInstruc(tokens))))
+                # if len(tokens) > 1:
+                #     if tokensToInstruc(tokens)
+                #     print(f"{}", file=output)
 
-            # Start JSON object
-            print(f"{{", file=output)
+        print(machineCodeBytes)
+        print(f"{machineCodeBytes}", file=output)
 
-            # End JSON object
-            print(f"}}", file=output)
+        print("Byte[0]:     " + str(machineCodeBytes[2]))
+
+        print("{0:b}".format(machineCodeBytes[2]))
