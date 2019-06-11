@@ -144,6 +144,7 @@ with open(f"./test.asm") as input:
         for x in range(0, len(content)):
             tokens = str.split(content[x])
             instruc = tokensToInstruc(tokens)
+            instructionBytes = []
 
             # print("tokens:      " + str(tokens))
             # print(instruc)
@@ -151,7 +152,6 @@ with open(f"./test.asm") as input:
             # print(machineCodeBytes)
             # print()
 
-            instructionBytes = []
             if instrucToBinary(tokensToInstruc(tokens)):
                 # print(f"{instrucToBinary(tokensToInstruc(tokens))}", file=output)
                 machineCodeBytes.append(
