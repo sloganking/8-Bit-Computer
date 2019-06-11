@@ -156,13 +156,16 @@ with open(f"./test.asm") as input:
                 # print(f"{instrucToBinary(tokensToInstruc(tokens))}", file=output)
                 machineCodeBytes.append(
                     int(instrucToBinary(tokensToInstruc(tokens))))
-                # if len(tokens) > 1:
-                #     if tokensToInstruc(tokens)
-                #     print(f"{}", file=output)
+                if len(tokens) > 1:
+                    if "reg" in returnType(tokens[1]):
+                        machineCodeBytes.append(regToBinary(tokens[1]))
+                    elif "const" in returnType(tokens[1]):
+                        machineCodeBytes.append(constToBinary(tokens[1]))
+                if len(tokens) > 2:
+                    if "reg" in returnType(tokens[2]):
+                        machineCodeBytes.append(regToBinary(tokens[2]))
+                    elif "const" in returnType(tokens[2]):
+                        machineCodeBytes.append(constToBinary(tokens[2]))
 
         print(machineCodeBytes)
         print(f"{machineCodeBytes}", file=output)
-
-        print("Byte[0]:     " + str(machineCodeBytes[2]))
-
-        print("{0:b}".format(machineCodeBytes[2]))
