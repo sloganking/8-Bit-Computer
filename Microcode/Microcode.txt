@@ -28,10 +28,10 @@ DEC_reg:
     fromALU, toWriteReg, incIP, endMP
 
 JNC_const:
-    if(carry), incIP, endMP
+    fromRAM, if(carry), incIP, endMP
 
 JC_const:
-    NOT, if(carry), incIP, endMP
+    fromRAM, NOT, if(carry), incIP, endMP
 
 ADD_reg_reg:
     fromRAM, toRegRead, toRegWrite, incIP
@@ -125,7 +125,7 @@ NOR_reg_reg:
     fromALU, toWriteReg, incIP, endMP
     
 JNZ_const:
-    if(zero), incIP, endMP
+    fromRAM, if(zero), incIP, endMP
 
 JZ_const:
-    NOT, if(zero), incIP, endMP
+    fromRAM, NOT, if(zero), incIP, endMP
