@@ -11,20 +11,24 @@ import time
 # ===========================================================================
 
 # Remove all files in given directory
+
+
 def removeAllFilesInDirectory(directory):
     onlyfiles = [f for f in listdir(directory) if isfile(join(directory, f))]
     for i in range(0, len(onlyfiles)):
         os.remove(f"{directory}{onlyfiles[i]}")
 
+
 def RepresentsInt(s):
-    try: 
+    try:
         int(s)
         return True
     except ValueError:
         return False
 
+
 def returnType(token):
-    regCharacters = ["A","B","C","D"]
+    regCharacters = ["A", "B", "C", "D"]
     isAddress = False
     if token.startswith('[') and token.endswith(']'):
         isAddress = True
@@ -37,7 +41,7 @@ def returnType(token):
     if RepresentsInt(token):
         if isAddress:
             return "[const]"
-        else: 
+        else:
             return "const"
     elif len(token) == 1 and token in regCharacters:
         if isAddress:
@@ -47,8 +51,9 @@ def returnType(token):
     elif isALabel(token):
         if isAddress:
             return "[const]"
-        else: 
+        else:
             return "const"
+
 
 def tokensToInstruc(tokens):
     instruc = ""
@@ -60,6 +65,7 @@ def tokensToInstruc(tokens):
         instruc = instruc + "_" + returnType(tokens[2])
     return instruc
 
+
 def getListOfLabels():
     with open(f"./test.asm") as labelInput:
         listOfLabels = []
@@ -68,12 +74,10 @@ def getListOfLabels():
             labelTokens = str.split(labelContent[lx])
             if len(labelTokens) > 0:
                 labelTokens = str.split(labelContent[lx])
-                # print("token[0]:     " + str(labelTokens[0]))
-                # print("end:     " + str(labelTokens[0][-1:]))
                 if str(labelTokens[0][-1:]) == ":":
-                    # print("true======================")
                     listOfLabels.append(labelTokens[0].replace(":", ""))
         return listOfLabels
+
 
 def isALabel(string):
     if string in listOfLabels:
@@ -84,6 +88,7 @@ def isALabel(string):
 # Start of main program
 # ===========================================================================
 
+
 removeAllFilesInDirectory("./Output/")
 
 with open(f"./instrucToBinary.json") as json_data:
@@ -91,20 +96,18 @@ with open(f"./instrucToBinary.json") as json_data:
     with open(f"./test.asm") as input:
         with open(f"./Output/machineCode.json", "w") as output:
             content = input.readlines()
-            
             listOfLabels = getListOfLabels()
-            
+
             # print("listOfLabels:       " + str(listOfLabels))
 
             for x in range(0, len(content)):
                 tokens = str.split(content[x])
-                instruc = ""
 
                 print("tokens:      " + str(tokens))
                 instruc = tokensToInstruc(tokens)
                 print(instruc)
                 print()
-            
+
             # Start JSON object
             print(f"{{", file=output)
 
