@@ -6,8 +6,8 @@
 	"MOV_reg_reg":"5",
 	"INC_reg":"8",
 	"DEC_reg":"11",
-	"JNC_[const]":"14",
-	"JC_[const]":"15",
+	"JNC_const":"14",
+	"JC_const":"15",
 	"ADD_reg_reg":"16",
 	"ADD_reg_const":"21",
 	"PRINT_reg":"25",
@@ -23,6 +23,6 @@
 	"XNOR_reg_reg":"62",
 	"OR_reg_reg":"67",
 	"NOR_reg_reg":"72",
-	"JNZ_[const]":"77",
-	"JZ_[const]":"78"
+	"JNZ_const":"77",
+	"JZ_const":"78"
 }
