@@ -104,10 +104,6 @@ def isALabel(string):
 def instrucToBinary(string):
     with open(f"./instrucToBinary.json") as json_data:
         instrucToBinary = json.load(json_data)
-        # if instrucToBinary[string]:
-        #     return True
-        # else:
-        #     return False
         try:
             return instrucToBinary[string]
         except:
