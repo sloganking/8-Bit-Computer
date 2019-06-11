@@ -120,6 +120,14 @@ def regToBinary(reg):
         return 2
     elif reg == "D":
         return 3
+
+
+def constToBinary(const):
+    if isALabel(const):
+        return labelNumbers[listOfLabels.index(const)]
+    else:
+        return int(const.replace(",", ""))
+
     # Start of main program
     # ===========================================================================
 
