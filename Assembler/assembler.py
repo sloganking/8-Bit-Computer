@@ -85,8 +85,21 @@ def isALabel(string):
     else:
         return False
 
-# Start of main program
-# ===========================================================================
+
+def instrucToBinary(string):
+    with open(f"./instrucToBinary.json") as json_data:
+        instrucToBinary = json.load(json_data)
+        # if instrucToBinary[string]:
+        #     return True
+        # else:
+        #     return False
+        try:
+            return instrucToBinary[string]
+        except:
+            return False
+
+    # Start of main program
+    # ===========================================================================
 
 
 removeAllFilesInDirectory("./Output/")
