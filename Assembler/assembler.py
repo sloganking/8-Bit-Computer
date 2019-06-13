@@ -118,6 +118,8 @@ def regToBinary(reg):
         return 2
     elif reg == "D":
         return 3
+    else:
+        return False
 
 
 def constToBinary(const):
