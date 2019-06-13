@@ -10,8 +10,6 @@ import time
 # Function declarations
 # ===========================================================================
 
-# Remove all files in given directory
-
 
 def removeAllFilesInDirectory(directory):
     onlyfiles = [f for f in listdir(directory) if isfile(join(directory, f))]
