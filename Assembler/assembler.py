@@ -149,6 +149,7 @@ with open(f"./test.asm") as input:
             instruc = tokensToInstruc(tokens)
             instructionBytes = []
 
+            # if "tokens" represnt a valid instruction
             if instrucToBinary(tokensToInstruc(tokens)):
                 machineCodeBytes.append(
                     int(instrucToBinary(tokensToInstruc(tokens))))
