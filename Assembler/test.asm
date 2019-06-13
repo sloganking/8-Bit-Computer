@@ -1,11 +1,11 @@
 counting:
-      MOV A, 0
+  MOV A, 0
 
 .countLoop:
-    PRINT A
-    INC A
-    CMP A, 11
-    JNC .countLoop
+  PRINT A
+  INC A
+  CMP A, 11
+  JNC .countLoop
 
 doubling:
   MOV A, 1
