@@ -1,13 +1,17 @@
-# 8-Bit CPU Documentation [WIP]
+# 8-Bit-Computer-Documentation [WIP]
 
-This project aims to document how my 8-bit CPU works, to provide example programs that it can run, and to provide visual examples of those programs running.
+This project aims to document how my 8-bit computer works, to provide example programs that it can run, and to provide visual examples of those programs running.
 
 ## Inspiration
-The design of this CPU was heavily inspired by ideas from both Ben Eater's ["Building an 8-bit breadboard computer!" Youtube series](https://www.youtube.com/watch?v=HyznrdDSSGM&list=PLowKtXNTBypGqImE405J2565dvjafglHU) and Marco Schweighauser's [Online Assembler-Simulator](https://schweigi.github.io/assembler-simulator/index.html)
+The design of this computer was heavily inspired by ideas from both Ben Eater's ["Building an 8-bit breadboard computer!" Youtube series](https://www.youtube.com/watch?v=HyznrdDSSGM&list=PLowKtXNTBypGqImE405J2565dvjafglHU) and Marco Schweighauser's [Online Assembler-Simulator](https://schweigi.github.io/assembler-simulator/index.html)
 
 ## Implementations
 ### Breadboard [WIP]
 ![Breadboard](./Assets/Breadboard.jpg)
+
+### Redstone [Completed]
+![redstone_implementation](./Assets/redstone_implementation.png)
+[link to video](https://youtu.be/lqPx-vPoeg0)
 
 ## Block Diagram
 ![Diagram](https://i.imgur.com/DOcqbF5.png)
