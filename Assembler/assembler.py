@@ -135,7 +135,7 @@ def constToBinary(const):
 removeAllFilesInDirectory("./Output/")
 
 with open(f"./test.asm") as input:
-    with open(f"./Output/machineCode.bin", "w") as output:
+    with open(f"./Output/machineCode.bin", "wb") as output:
         content = input.readlines()
         listOfLabels = getListOfLabels()
         labelNumbers = getLabelNumbers()
@@ -163,5 +163,7 @@ with open(f"./test.asm") as input:
                     elif "const" in returnType(tokens[2]):
                         machineCodeBytes.append(constToBinary(tokens[2]))
 
+        output.write(machineCodeBytes)
+        print("Assembler finished")
+        print("wrote " + str(len(machineCodeBytes)) + " bytes to output")
         print(machineCodeBytes)
-        print(f"{machineCodeBytes}", file=output)
