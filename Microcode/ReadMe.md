@@ -58,6 +58,6 @@ ALU=NOR
 ## Other
 
 ```
-incIP       ; increments the instruction pointer "fromRAM" always returns data from the address inside the instruction pointer unless "fromRamAddr" is on
+incIP       ; increments the instruction pointer. "fromRAM" always returns data from the address inside the instruction pointer unless "fromRamAddr" is on
 endMP       ; ends Micro Program
 HLT         ; stops the processor's clock
