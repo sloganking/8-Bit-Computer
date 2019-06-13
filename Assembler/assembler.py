@@ -128,8 +128,8 @@ def constToBinary(const):
     else:
         return int(const.replace(",", ""))
 
-    # Start of main program
-    # ===========================================================================
+# Initialization
+# ===========================================================================
 
 
 removeAllFilesInDirectory("./Output/")
@@ -140,6 +140,9 @@ with open(f"./test.asm") as input:
         listOfLabels = getListOfLabels()
         labelNumbers = getLabelNumbers()
         machineCodeBytes = bytearray()
+
+# Start of main program
+# ===========================================================================
 
         for x in range(0, len(content)):
             tokens = str.split(content[x])
