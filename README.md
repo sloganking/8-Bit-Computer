@@ -9,6 +9,9 @@ The design of this CPU was heavily inspired by ideas from both Ben Eater's ["Bui
 ### Breadboard [WIP]
 ![Breadboard](./Assets/Breadboard.jpg)
 
+### Redstone [Completed]
+[link to video](https://youtu.be/lqPx-vPoeg0)
+
 ## Block Diagram
 ![Diagram](https://i.imgur.com/DOcqbF5.png)
 
