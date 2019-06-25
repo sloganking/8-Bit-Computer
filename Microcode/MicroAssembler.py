@@ -93,9 +93,11 @@ micInstrucToBinary = {
     "HLT":          0b00000000000000010000000000000000
 }
 
+removeAllFilesInDirectory("./Output/")
+
+
 # Start of main program
 # ===========================================================================
-removeAllFilesInDirectory("./Output/")
 
 
 with open(f"./Microcode.txt") as input:
@@ -105,7 +107,6 @@ with open(f"./Microcode.txt") as input:
 
             # Start JSON object
             print(f"{{", file=output)
-            # print(content)
             microAddress = 0
             for x in range(0, len(content)):
                 tokens = str.split(content[x])
