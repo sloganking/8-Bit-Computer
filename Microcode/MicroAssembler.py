@@ -21,7 +21,6 @@ def removeAllFilesInDirectory(directory):
 def thereIsAnotherInsturction():
     x2 = x + 1
     while x2 < len(content):
-
         tokens2 = str.split(content[x2])
         if len(tokens2) > 0:
             if tokens2[0][len(tokens2[0]) - 1] == ":":
@@ -32,7 +31,6 @@ def thereIsAnotherInsturction():
 
 def fullMicInstrucToBinary(tokens):
     microInstruc = 0
-
     for x in range(0, len(tokens)):
         tokens[x] = tokens[x].replace(",", "")
     for x in range(0, len(tokens)):
