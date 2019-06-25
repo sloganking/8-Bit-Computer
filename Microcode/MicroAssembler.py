@@ -100,41 +100,46 @@ removeAllFilesInDirectory("./Output/")
 
 with open(f"./Microcode.txt") as input:
     with open(f"./Output/instrucToBinary.json", "w") as output:
-        content = input.readlines()
+        with open(f"./Output/microcode.bin", "wb") as micOutput:
+            content = input.readlines()
 
-        # Start JSON object
-        print(f"{{", file=output)
-        # print(content)
-        microAddress = 0
-        for x in range(0, len(content)):
-            tokens = str.split(content[x])
-            strToPrint = ""
+            # Start JSON object
+            print(f"{{", file=output)
+            # print(content)
+            microAddress = 0
+            for x in range(0, len(content)):
+                tokens = str.split(content[x])
+                strToPrint = ""
 
-            if len(tokens) > 0:
-                # if first char of string is ";", ignore line
-                if tokens[0][0] != ";":
+                if len(tokens) > 0:
+                    # if first char of string is ";", ignore line
+                    if tokens[0][0] != ";":
 
-                    # if last char of first token is ":", instruction detected
-                    if tokens[0][len(tokens[0]) - 1] == ":":
-                        strToPrint = "\t\"" + \
-                            tokens[0][:-1] + "\":" + f"\"{microAddress}\""
-                        if thereIsAnotherInsturction():
-                            strToPrint = strToPrint + ","
-                    # assemble micro instruction
-                    else:
-                        microAddress += 1   # keeps track of addresses for instrucToBinary.json
-                        print(tokens)
-                        if fullMicInstrucToBinary(tokens):
-                            print(bin(fullMicInstrucToBinary(tokens)))
+                        # if last char of first token is ":", instruction detected
+                        if tokens[0][len(tokens[0]) - 1] == ":":
+                            strToPrint = "\t\"" + \
+                                tokens[0][:-1] + "\":" + f"\"{microAddress}\""
+                            if thereIsAnotherInsturction():
+                                strToPrint = strToPrint + ","
+                        # assemble micro instruction
                         else:
-                            print(
-                                "Error: invalid micro instruction given on line: ", x + 1)
-                            break
+                            microAddress += 1   # keeps track of addresses for instrucToBinary.json
+                            print(tokens)
+                            if fullMicInstrucToBinary(tokens):
+                                print((fullMicInstrucToBinary(tokens)
+                                       ).to_bytes(4, byteorder='big'))
 
-            # If something to print
-            if strToPrint != "":
-                strToPrint = f"{strToPrint}"
-                print(f"{strToPrint}", file=output)
+                                micOutput.write((fullMicInstrucToBinary(tokens)
+                                                 ).to_bytes(4, byteorder='big'))
+                            else:
+                                print(
+                                    "Error: invalid micro instruction given on line: ", x + 1)
+                                break
 
-        # End JSON object
-        print(f"}}", file=output)
+                # If something to print
+                if strToPrint != "":
+                    strToPrint = f"{strToPrint}"
+                    print(f"{strToPrint}", file=output)
+
+            # End JSON object
+            print(f"}}", file=output)
