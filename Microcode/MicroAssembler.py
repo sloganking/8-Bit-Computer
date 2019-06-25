@@ -30,6 +30,20 @@ def thereIsAnotherInsturction():
     return False
 
 
+def fullMicInstrucToBinary(tokens):
+    microInstruc = 0
+
+    for x in range(0, len(tokens)):
+        tokens[x] = tokens[x].replace(",", "")
+    for x in range(0, len(tokens)):
+        try:
+            microInstruc = microInstruc | micInstrucToBinary[tokens[x]]
+        except:
+            print("Error: ", tokens[x], " is not a valid instruction")
+            return False
+    return microInstruc
+
+
 # Initialization
 # ===========================================================================
 
@@ -111,6 +125,13 @@ with open(f"./Microcode.txt") as input:
                     # assemble micro instruction
                     else:
                         microAddress += 1   # keeps track of addresses for instrucToBinary.json
+                        print(tokens)
+                        if fullMicInstrucToBinary(tokens):
+                            print(bin(fullMicInstrucToBinary(tokens)))
+                        else:
+                            print(
+                                "Error: invalid micro instruction given on line: ", x + 1)
+                            break
 
             # If something to print
             if strToPrint != "":
