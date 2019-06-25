@@ -124,11 +124,7 @@ with open(f"./Microcode.txt") as input:
                         # assemble micro instruction
                         else:
                             microAddress += 1   # keeps track of addresses for instrucToBinary.json
-                            print(tokens)
                             if fullMicInstrucToBinary(tokens):
-                                print((fullMicInstrucToBinary(tokens)
-                                       ).to_bytes(4, byteorder='big'))
-
                                 micOutput.write((fullMicInstrucToBinary(tokens)
                                                  ).to_bytes(4, byteorder='big'))
                             else:
