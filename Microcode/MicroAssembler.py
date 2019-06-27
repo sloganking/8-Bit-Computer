@@ -11,7 +11,6 @@ import time
 # ===========================================================================
 
 
-# Remove all files in given directory
 def removeAllFilesInDirectory(directory):
     onlyfiles = [f for f in listdir(directory) if isfile(join(directory, f))]
     for i in range(0, len(onlyfiles)):
