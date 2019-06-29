@@ -6,7 +6,7 @@ instrucToBinary.json contains a list of all valid instructions and is used by as
 
 ## Instruction format
 
-Every instruction has two parts, the operation and it's arguments. Operations can take between one and two arguments.
+Every instruction has two parts, the operation and it's arguments. Operations can take between zero and two arguments.
 
 ## Instruction machine code
 
