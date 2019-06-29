@@ -1,7 +1,7 @@
   MOV A, 128
   
-.halfingLoop:
+.halvingLoop:
   PRINT A
   SHR A
-  JNZ .halfingLoop
+  JNZ .halvingLoop
   HLT
