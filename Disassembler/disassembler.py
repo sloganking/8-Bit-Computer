@@ -45,10 +45,28 @@ def bytesToInstruc():
 
 
 def binaryToReg(binary: int):
-    pass
+    if binary == 0:
+        return "A"
+    elif binary == 1:
+        return "B"
+    elif binary == 2:
+        return "C"
+    elif binary == 3:
+        return "D"
+    else:
+        assert (False), f"No reg for given binary: {binary}"
 
 
-def binaryToInstruc(binary: int):
+def binaryIsReg(binary: int):
+    try:
+        binaryToReg(binary)
+        return True
+    except:
+        return False
+
+
+# returns string of instruction's name with it's paramater(s) types
+def binaryToInstrucLayout(binary: int):
     binary = str(binary)
     return instrucNames[instrucNumbers.index(binary)]
 
