@@ -44,6 +44,20 @@ def bytesToInstruc(bytes: list):
     return instructionString
 
 
+def getLabelFor(number: int):
+    labels = []
+    labelValues = []
+
+    # existing label
+    if number in labelValues:
+        return "L" + labels[labelValues.index(number)]
+    # label does not exist
+    else:
+        labels.append(nextLabel)
+        nextLabel = nextLabel + 1
+        return "L" + nextLabel
+
+
 def binaryToReg(binary: int):
     if binary == 0:
         return "A"
@@ -80,6 +94,9 @@ def nameOfInstuc(instruc: str):
 
 
 removeAllFilesInDirectory("./Output/")
+
+# initialize known label number
+nextLabel = 0
 
 # create byteArray with all file bytes
 with open("./machineCode.bin", "rb") as f:
