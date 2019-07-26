@@ -9,13 +9,18 @@ l1:
 	PRINT A
 	SHL A
 	JNC l1
+	MOV A, 128
+l2:
+	PRINT A
+	SHR A
+	JNZ l2
 	MOV A, 1
 	MOV B, 0
 	PRINT B
-l2:
+l3:
 	PRINT A
 	MOV C, A
 	ADD A, B
 	MOV B, C
-	JNC l2
+	JNC l3
 	HLT
