@@ -11,31 +11,35 @@ import time
 # ===========================================================================
 
 
-def removeAllFilesInDirectory(directory):
+def removeAllFilesInDirectory(directory: str):
     onlyfiles = [f for f in listdir(directory) if isfile(join(directory, f))]
     for i in range(0, len(onlyfiles)):
         os.remove(f"{directory}{onlyfiles[i]}")
 
 
 # takes machineCode bytes and returns a string of assembly
-def bytesToInstruc(bytes: []):
+def bytesToInstruc(bytes: list):
     params = binaryToInstrucLayout(bytes[0])
     tokenedParams = params.split("_")
 
     instructionString = ""
     instructionString = nameOfInstuc(binaryToInstrucLayout(bytes[0]))
 
-    operand = ""
-    if len(tokenedParams) > 1:
-        if "reg" in tokenedParams[1]:
-            if binaryIsReg(bytes[1]):
-                operand = tokenedParams[1]
-                operand = operand.replace("reg", binaryToReg(bytes[1]))
+    # x can be 1 and 2
+    for x in range(1, 3):
+        operand = ""
+        if len(tokenedParams) > x:
+            if x == 2:
+                instructionString = instructionString + ","
+            if "reg" in tokenedParams[x]:
+                if binaryIsReg(bytes[x]):
+                    operand = tokenedParams[x]
+                    operand = operand.replace("reg", binaryToReg(bytes[x]))
+                    instructionString = instructionString + " " + operand
+            elif "const" in tokenedParams[x]:
+                operand = tokenedParams[x]
+                operand = operand.replace("const", str(bytes[x]))
                 instructionString = instructionString + " " + operand
-        if "const" in tokenedParams[1]:
-            operand = tokenedParams[1]
-            operand = operand.replace("const", bytes[1])
-            instructionString = instructionString + " " + operand
 
     return instructionString
 
@@ -96,9 +100,21 @@ for instrucName in instrucNames:
 # Start of main program
 # ===========================================================================
 
-# print(instrucNumbers)
-# print(binaryToInstrucLayout(5))
-# print(nameOfInstuc(binaryToInstrucLayout(5)))
-# print(binaryToReg(3))
+# print(bytesToInstruc([3, 0, 1]))
 
-print(bytesToInstruc([3, 0, 1]))
+with open(f"./Output/test.asm", "w") as output:
+    i = 0
+    while(i < len(byte)):
+
+        instrucLayout = binaryToInstrucLayout(byte[i])
+        layoutTokens = instrucLayout.split("_")
+
+        instructionBundle = []
+        for x in range(len(layoutTokens)):
+            instructionBundle.append(byte[i + x])
+
+        # write assembly line to output file
+        output.write(bytesToInstruc(instructionBundle) + "\n")
+
+        # sets i to location of next instruction.
+        i = i + len(layoutTokens)
