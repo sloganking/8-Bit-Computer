@@ -95,3 +95,10 @@ for instrucName in instrucNames:
 
 # Start of main program
 # ===========================================================================
+
+# print(instrucNumbers)
+# print(binaryToInstrucLayout(5))
+# print(nameOfInstuc(binaryToInstrucLayout(5)))
+# print(binaryToReg(3))
+
+print(bytesToInstruc([3, 0, 1]))
