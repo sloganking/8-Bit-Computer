@@ -9,12 +9,12 @@ counting:
 
 doubling:
   MOV A, 1
-  
+
 .doublingLoop:
   PRINT A
   SHL A
   JNC .doublingLoop
-  
+
 fib:
   MOV A, 1
   MOV B, 0
