@@ -66,7 +66,6 @@ removeAllFilesInDirectory("./Output/")
 # create byteArray with all file bytes
 with open("./machineCode.bin", "rb") as f:
     byte = f.read()
-    print(byte)
 
 
 # create and load binaryToIncruc array
@@ -79,10 +78,6 @@ instrucNames = list(instrucDict.keys())
 instrucNumbers = []
 for instrucName in instrucNames:
     instrucNumbers.append(instrucDict[instrucName])
-
-print(instrucNumbers)
-print(binaryToInstruc(5))
-print(nameOfInstuc(binaryToInstruc(5)))
 
 # Start of main program
 # ===========================================================================
