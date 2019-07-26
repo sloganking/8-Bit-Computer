@@ -17,31 +17,27 @@ def removeAllFilesInDirectory(directory):
         os.remove(f"{directory}{onlyfiles[i]}")
 
 
-def bytesToInstruc():
-    pass
+# takes machineCode bytes and returns a string of assembly
+def bytesToInstruc(bytes: []):
+    params = binaryToInstrucLayout(bytes[0])
+    tokenedParams = params.split("_")
 
+    instructionString = ""
+    instructionString = nameOfInstuc(binaryToInstrucLayout(bytes[0]))
 
-# def getListOfLabels():
-#     with open(f"./test.asm") as labelInput:
-#         listOfLabels = []
-#         labelContent = labelInput.readlines()
-#         for lx in range(0, len(labelContent)):
-#             labelTokens = str.split(labelContent[lx])
-#             if len(labelTokens) > 0:
-#                 if str(labelTokens[0][-1:]) == ":":
-#                     listOfLabels.append(labelTokens[0].replace(":", ""))
-#         return listOfLabels
+    operand = ""
+    if len(tokenedParams) > 1:
+        if "reg" in tokenedParams[1]:
+            if binaryIsReg(bytes[1]):
+                operand = tokenedParams[1]
+                operand = operand.replace("reg", binaryToReg(bytes[1]))
+                instructionString = instructionString + " " + operand
+        if "const" in tokenedParams[1]:
+            operand = tokenedParams[1]
+            operand = operand.replace("const", bytes[1])
+            instructionString = instructionString + " " + operand
 
-
-# def getLabelNumbers():
-    # pass
-
-
-# def isALabel(string):
-#     if string in listOfLabels:
-#         return True
-#     else:
-#         return False
+    return instructionString
 
 
 def binaryToReg(binary: int):
