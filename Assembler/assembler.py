@@ -13,20 +13,26 @@ import time
 
 class assembler:
 
-    def removeAllFilesInDirectory(directory):
+    def __init__(self):
+        self.content = ""
+        self.listOfLabels = self.getListOfLabels()
+        self.labelNumbers = self.getLabelNumbers()
+        self.machineCodeBytes = bytearray()
+
+    def removeAllFilesInDirectory(self, directory):
         onlyfiles = [f for f in listdir(
             directory) if isfile(join(directory, f))]
         for i in range(0, len(onlyfiles)):
             os.remove(f"{directory}{onlyfiles[i]}")
 
-    def RepresentsInt(s):
+    def RepresentsInt(self, s):
         try:
             int(s)
             return True
         except ValueError:
             return False
 
-    def returnType(token):
+    def returnType(self, token):
         regCharacters = ["A", "B", "C", "D"]
         isAddress = False
         if token.startswith('[') and token.endswith(']'):
@@ -37,7 +43,7 @@ class assembler:
         if "," in token:
             token = token.replace(",", "")
         # print("token:   " + token)
-        if RepresentsInt(token):
+        if self.RepresentsInt(token):
             if isAddress:
                 return "[const]"
             else:
@@ -47,35 +53,36 @@ class assembler:
                 return "[reg]"
             else:
                 return "reg"
-        elif isALabel(token):
+        elif self.isALabel(token):
             if isAddress:
                 return "[const]"
             else:
                 return "const"
 
-    def tokensToInstruc(tokens):
+    def tokensToInstruc(self, tokens):
         instruc = ""
         if len(tokens) > 0:
             instruc = instruc + tokens[0]
         if len(tokens) > 1:
-            instruc = instruc + "_" + returnType(tokens[1])
+            instruc = instruc + "_" + self.returnType(tokens[1])
         if len(tokens) > 2:
-            instruc = instruc + "_" + returnType(tokens[2])
+            instruc = instruc + "_" + self.returnType(tokens[2])
         return instruc
 
-    def getListOfLabels():
+    def getListOfLabels(self):
         with open(f"./test.asm") as labelInput:
-            listOfLabels = []
+            self.listOfLabels = []
             labelContent = labelInput.readlines()
             for lx in range(0, len(labelContent)):
                 labelTokens = str.split(labelContent[lx])
                 if len(labelTokens) > 0:
                     if str(labelTokens[0][-1:]) == ":":
-                        listOfLabels.append(labelTokens[0].replace(":", ""))
-            return listOfLabels
+                        self.listOfLabels.append(
+                            labelTokens[0].replace(":", ""))
+            return self.listOfLabels
 
-    def getLabelNumbers():
-        labelNumbers = []
+    def getLabelNumbers(self):
+        self.labelNumbers = []
         with open(f"./test.asm") as labelInput:
             currentByte = 0
             labelContent = labelInput.readlines()
@@ -84,26 +91,26 @@ class assembler:
                 labelTokens = str.split(labelContent[lx])
                 if len(labelTokens) > 0:
                     if str(labelTokens[0][-1:]) == ":":
-                        labelNumbers.append(currentByte)
-                    elif instrucToBinary(tokensToInstruc(labelTokens)):
+                        self.labelNumbers.append(currentByte)
+                    elif self.instrucToBinary(self.tokensToInstruc(labelTokens)):
                         currentByte += len(labelTokens)
-        return labelNumbers
+        return self.labelNumbers
 
-    def isALabel(string):
-        if string in listOfLabels:
+    def isALabel(self, string):
+        if string in self.listOfLabels:
             return True
         else:
             return False
 
-    def instrucToBinary(string):
+    def instrucToBinary(self, string):
         with open(f"./instrucToBinary.json") as json_data:
-            instrucToBinary = json.load(json_data)
+            binInstruc = json.load(json_data)
             try:
-                return instrucToBinary[string]
+                return binInstruc[string]
             except:
                 return False
 
-    def regToBinary(reg):
+    def regToBinary(self, reg):
         reg = reg.replace(",", "")
         if reg == "A":
             return 0
@@ -116,48 +123,51 @@ class assembler:
         else:
             return False
 
-    def constToBinary(const):
-        if isALabel(const):
-            return labelNumbers[listOfLabels.index(const)]
+    def constToBinary(self, const):
+        if self.isALabel(const):
+            return self.labelNumbers[self.listOfLabels.index(const)]
         else:
             return int(const.replace(",", ""))
 
     # Initialization
     # ===========================================================================
 
-    removeAllFilesInDirectory("./Output/")
+    # removeAllFilesInDirectory("./Output/")
 
-    with open(f"./test.asm") as input:
-        with open(f"./Output/machineCode.bin", "wb") as output:
-            content = input.readlines()
-            listOfLabels = getListOfLabels()
-            labelNumbers = getLabelNumbers()
-            machineCodeBytes = bytearray()
+    def assemble(self, inputDir, outputDir):
+        with open(outputDir, "wb") as output:
+            with open(inputDir) as input:
+                self.content = input.readlines()
 
-    # Start of main program
-    # ===========================================================================
+                # Start of main program
+                # ===========================================================================
 
-            for x in range(0, len(content)):
-                tokens = str.split(content[x])
-                instruc = tokensToInstruc(tokens)
-                instructionBytes = []
+                for x in range(0, len(self.content)):
+                    tokens = str.split(self.content[x])
+                    instruc = self.tokensToInstruc(tokens)
+                    instructionBytes = []
 
-                # if "tokens" represnt a valid instruction
-                if instrucToBinary(tokensToInstruc(tokens)):
-                    machineCodeBytes.append(
-                        int(instrucToBinary(tokensToInstruc(tokens))))
-                    if len(tokens) > 1:
-                        if "reg" in returnType(tokens[1]):
-                            machineCodeBytes.append(regToBinary(tokens[1]))
-                        elif "const" in returnType(tokens[1]):
-                            machineCodeBytes.append(constToBinary(tokens[1]))
-                    if len(tokens) > 2:
-                        if "reg" in returnType(tokens[2]):
-                            machineCodeBytes.append(regToBinary(tokens[2]))
-                        elif "const" in returnType(tokens[2]):
-                            machineCodeBytes.append(constToBinary(tokens[2]))
+                    # if "tokens" represnt a valid instruction
+                    if self.instrucToBinary(self.tokensToInstruc(tokens)):
+                        self.machineCodeBytes.append(
+                            int(self.instrucToBinary(self.tokensToInstruc(tokens))))
+                        if len(tokens) > 1:
+                            if "reg" in self.returnType(tokens[1]):
+                                self.machineCodeBytes.append(
+                                    self.regToBinary(tokens[1]))
+                            elif "const" in self.returnType(tokens[1]):
+                                self.machineCodeBytes.append(
+                                    self.constToBinary(tokens[1]))
+                        if len(tokens) > 2:
+                            if "reg" in self.returnType(tokens[2]):
+                                self.machineCodeBytes.append(
+                                    self.regToBinary(tokens[2]))
+                            elif "const" in self.returnType(tokens[2]):
+                                self.machineCodeBytes.append(
+                                    self.constToBinary(tokens[2]))
 
-            output.write(machineCodeBytes)
-            print("Assembler finished")
-            print("wrote " + str(len(machineCodeBytes)) + " bytes to output")
-            print(machineCodeBytes)
+                output.write(self.machineCodeBytes)
+                print("Assembler finished")
+                print("wrote " + str(len(self.machineCodeBytes)) +
+                      " bytes to output")
+                print(self.machineCodeBytes)
