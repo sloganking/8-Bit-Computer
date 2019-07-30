@@ -121,6 +121,9 @@ class assembler:
             return False
 
     def constToBinary(self, const):
+        if const.startswith('[') and const.endswith(']'):
+            const = const.replace("[", "")
+            const = const.replace("]", "")
         if self.isALabel(const):
             return self.labelNumbers[self.listOfLabels.index(const)]
         else:
@@ -171,4 +174,4 @@ class assembler:
                 print("Assembler finished")
                 print("wrote " + str(len(self.machineCodeBytes)) +
                       " bytes to output")
-                print(self.machineCodeBytes)
+                # print(self.machineCodeBytes)
