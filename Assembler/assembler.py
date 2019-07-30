@@ -14,10 +14,7 @@ import time
 class assembler:
 
     def __init__(self):
-        self.content = ""
-        self.listOfLabels = self.getListOfLabels()
-        self.labelNumbers = self.getLabelNumbers()
-        self.machineCodeBytes = bytearray()
+        pass
 
     def removeAllFilesInDirectory(self, directory):
         onlyfiles = [f for f in listdir(
@@ -138,6 +135,9 @@ class assembler:
         with open(outputDir, "wb") as output:
             with open(inputDir) as input:
                 self.content = input.readlines()
+                self.listOfLabels = self.getListOfLabels()
+                self.labelNumbers = self.getLabelNumbers()
+                self.machineCodeBytes = bytearray()
 
                 # Start of main program
                 # ===========================================================================
