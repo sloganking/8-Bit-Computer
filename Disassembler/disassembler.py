@@ -29,11 +29,22 @@ class disassembler:
         for x in range(1, 3):
             operand = ""
             if len(tokenedParams) > x:
+                operandIsAddress = False
+                if tokenedParams[x].startswith('[') and tokenedParams[x].endswith(']'):
+                    operandIsAddress = True
                 if x == 2:
                     instructionString = instructionString + ","
 
                 if params in self.firstOperandShouldBeLabel and x == 1:
                     operand = self.getLabelFor(bytes[x])
+                    if operandIsAddress:
+                        operand = "[" + operand + "]"
+                    instructionString = instructionString + " " + operand
+
+                elif params in self.secondOperandShouldBeLabel and x == 2:
+                    operand = self.getLabelFor(bytes[x])
+                    if operandIsAddress:
+                        operand = "[" + operand + "]"
                     instructionString = instructionString + " " + operand
 
                 elif "reg" in tokenedParams[x]:
@@ -41,10 +52,14 @@ class disassembler:
                         operand = tokenedParams[x]
                         operand = operand.replace(
                             "reg", self.binaryToReg(bytes[x]))
+                        if operandIsAddress:
+                            operand = "[" + operand + "]"
                         instructionString = instructionString + " " + operand
                 elif "const" in tokenedParams[x]:
                     operand = tokenedParams[x]
                     operand = operand.replace("const", str(bytes[x]))
+                    if operandIsAddress:
+                        operand = "[" + operand + "]"
                     instructionString = instructionString + " " + operand
 
         return instructionString
@@ -101,6 +116,8 @@ class disassembler:
         self.firstOperandShouldBeLabel = ["JMP_const",
                                           "JNC_const", "JC_const", "JNZ_const", "JZ_const"]
 
+        self.secondOperandShouldBeLabel = ["MOV_reg_[const]"]
+
         # create byteArray with all file bytes
         with open(inputDir, "rb") as f:
             byte = f.read()
@@ -108,7 +125,6 @@ class disassembler:
         # create and load binaryToIncruc array
         with open(f"./instrucToBinary.json") as json_data:
             instrucDict = json.load(json_data)
-            # print(instrucToBinary[0])
 
         self.instrucNames = list(instrucDict.keys())
 
@@ -118,8 +134,6 @@ class disassembler:
 
         # Start of main program
         # ===========================================================================
-
-        # print(self.bytesToInstruc([3, 0, 1]))
 
         with open(outputDir, "w") as output:
             instructionBundles = []
