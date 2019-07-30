@@ -67,7 +67,7 @@ class assembler:
         return instruc
 
     def getListOfLabels(self):
-        with open(f"./test.asm") as labelInput:
+        with open(self.inputDir) as labelInput:
             self.listOfLabels = []
             labelContent = labelInput.readlines()
             for lx in range(0, len(labelContent)):
@@ -80,7 +80,7 @@ class assembler:
 
     def getLabelNumbers(self):
         self.labelNumbers = []
-        with open(f"./test.asm") as labelInput:
+        with open(self.inputDir) as labelInput:
             currentByte = 0
             labelContent = labelInput.readlines()
             for lx in range(0, len(labelContent)):
@@ -134,6 +134,7 @@ class assembler:
     def assemble(self, inputDir, outputDir):
         with open(outputDir, "wb") as output:
             with open(inputDir) as input:
+                self.inputDir = inputDir
                 self.content = input.readlines()
                 self.listOfLabels = self.getListOfLabels()
                 self.labelNumbers = self.getLabelNumbers()
