@@ -17,7 +17,7 @@ class assembler:
         except ValueError:
             return False
 
-    def returnType(self, token):
+    def __returnType(self, token):
         regCharacters = ["A", "B", "C", "D"]
         isAddress = False
         if token.startswith('[') and token.endswith(']'):
@@ -27,7 +27,7 @@ class assembler:
 
         if "," in token:
             token = token.replace(",", "")
-        if self.RepresentsInt(token):
+        if self.__RepresentsInt(token):
             if isAddress:
                 return "[const]"
             else:
@@ -37,23 +37,23 @@ class assembler:
                 return "[reg]"
             else:
                 return "reg"
-        elif self.isALabel(token):
+        elif self.__isALabel(token):
             if isAddress:
                 return "[const]"
             else:
                 return "const"
 
-    def tokensToInstruc(self, tokens):
+    def __tokensToInstruc(self, tokens):
         instruc = ""
         if len(tokens) > 0:
             instruc = instruc + tokens[0]
         if len(tokens) > 1:
-            instruc = instruc + "_" + self.returnType(tokens[1])
+            instruc = instruc + "_" + self.__returnType(tokens[1])
         if len(tokens) > 2:
-            instruc = instruc + "_" + self.returnType(tokens[2])
+            instruc = instruc + "_" + self.__returnType(tokens[2])
         return instruc
 
-    def getListOfLabels(self):
+    def __getListOfLabels(self):
         self.listOfLabels = []
         labelContent = self.linesToAssemble
         for lx in range(0, len(labelContent)):
@@ -64,7 +64,7 @@ class assembler:
                         labelTokens[0].replace(":", ""))
         return self.listOfLabels
 
-    def getLabelNumbers(self):
+    def __getLabelNumbers(self):
         self.labelNumbers = []
         currentByte = 0
         labelContent = self.linesToAssemble
@@ -74,17 +74,17 @@ class assembler:
             if len(labelTokens) > 0:
                 if str(labelTokens[0][-1:]) == ":":
                     self.labelNumbers.append(currentByte)
-                elif self.instrucToBinary(self.tokensToInstruc(labelTokens)):
+                elif self.__instrucToBinary(self.__tokensToInstruc(labelTokens)):
                     currentByte += len(labelTokens)
         return self.labelNumbers
 
-    def isALabel(self, string):
+    def __isALabel(self, string):
         if string in self.listOfLabels:
             return True
         else:
             return False
 
-    def instrucToBinary(self, string):
+    def __instrucToBinary(self, string):
         with open(f"./instrucToBinary.json") as json_data:
             binInstruc = json.load(json_data)
             try:
@@ -92,7 +92,7 @@ class assembler:
             except:
                 return False
 
-    def regToBinary(self, reg):
+    def __regToBinary(self, reg):
         reg = reg.replace(",", "")
         if reg == "A":
             return 0
@@ -105,11 +105,11 @@ class assembler:
         else:
             return False
 
-    def constToBinary(self, const):
+    def __constToBinary(self, const):
         if const.startswith('[') and const.endswith(']'):
             const = const.replace("[", "")
             const = const.replace("]", "")
-        if self.isALabel(const):
+        if self.__isALabel(const):
             return self.labelNumbers[self.listOfLabels.index(const)]
         else:
             return int(const.replace(",", ""))
@@ -121,32 +121,32 @@ class assembler:
 
         self.linesToAssemble = linesToAssemble
         self.content = linesToAssemble
-        self.listOfLabels = self.getListOfLabels()
-        self.labelNumbers = self.getLabelNumbers()
+        self.listOfLabels = self.__getListOfLabels()
+        self.labelNumbers = self.__getLabelNumbers()
         self.machineCodeBytes = bytearray()
 
         for x in range(0, len(self.content)):
             tokens = str.split(self.content[x])
-            instruc = self.tokensToInstruc(tokens)
+            instruc = self.__tokensToInstruc(tokens)
             instructionBytes = []
 
             # if "tokens" represnt a valid instruction
-            if self.instrucToBinary(self.tokensToInstruc(tokens)):
+            if self.__instrucToBinary(self.__tokensToInstruc(tokens)):
                 self.machineCodeBytes.append(
-                    int(self.instrucToBinary(self.tokensToInstruc(tokens))))
+                    int(self.__instrucToBinary(self.__tokensToInstruc(tokens))))
                 if len(tokens) > 1:
-                    if "reg" in self.returnType(tokens[1]):
+                    if "reg" in self.__returnType(tokens[1]):
                         self.machineCodeBytes.append(
-                            self.regToBinary(tokens[1]))
-                    elif "const" in self.returnType(tokens[1]):
+                            self.__regToBinary(tokens[1]))
+                    elif "const" in self.__returnType(tokens[1]):
                         self.machineCodeBytes.append(
-                            self.constToBinary(tokens[1]))
+                            self.__constToBinary(tokens[1]))
                 if len(tokens) > 2:
-                    if "reg" in self.returnType(tokens[2]):
+                    if "reg" in self.__returnType(tokens[2]):
                         self.machineCodeBytes.append(
-                            self.regToBinary(tokens[2]))
-                    elif "const" in self.returnType(tokens[2]):
+                            self.__regToBinary(tokens[2]))
+                    elif "const" in self.__returnType(tokens[2]):
                         self.machineCodeBytes.append(
-                            self.constToBinary(tokens[2]))
+                            self.__constToBinary(tokens[2]))
 
         return self.machineCodeBytes
