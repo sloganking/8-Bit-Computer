@@ -7,9 +7,6 @@ from os import listdir
 from os.path import isfile, join
 import time
 
-# Function declarations
-# ===========================================================================
-
 
 class assembler:
 
@@ -39,7 +36,6 @@ class assembler:
 
         if "," in token:
             token = token.replace(",", "")
-        # print("token:   " + token)
         if self.RepresentsInt(token):
             if isAddress:
                 return "[const]"
@@ -127,11 +123,6 @@ class assembler:
         else:
             return int(const.replace(",", ""))
 
-    # Initialization
-    # ===========================================================================
-
-    # removeAllFilesInDirectory("./Output/")
-
     """
     takes list of file lines and returns a bytearray of corresponding machine code
     """
@@ -142,9 +133,6 @@ class assembler:
         self.listOfLabels = self.getListOfLabels()
         self.labelNumbers = self.getLabelNumbers()
         self.machineCodeBytes = bytearray()
-
-        # Start of main program
-        # ===========================================================================
 
         for x in range(0, len(self.content)):
             tokens = str.split(self.content[x])

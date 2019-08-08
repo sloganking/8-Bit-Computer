@@ -7,10 +7,6 @@ from os import listdir
 from os.path import isfile, join
 import time
 
-# Function declarations
-# ===========================================================================
-
-
 class disassembler:
 
     def __init__(self):
@@ -104,9 +100,6 @@ class disassembler:
         tokens = instruc.split("_")
         return tokens[0]
 
-    # Initialization
-    # ===========================================================================
-
     def disassemble(self, inputBytes):
         self.linesToReturn = []
 
@@ -131,11 +124,6 @@ class disassembler:
         self.instrucNumbers = []
         for instrucName in self.instrucNames:
             self.instrucNumbers.append(instrucDict[instrucName])
-
-        # Start of main program
-        # ===========================================================================
-
-
         instructionBundles = []
         i = 0
         while(i < len(byte)):
@@ -146,8 +134,6 @@ class disassembler:
             for x in range(len(layoutTokens)):
                 instructionBundle.append(byte[i + x])
 
-            # write assembly line to output file
-            # output.write(self.bytesToInstruc(instructionBundle) + "\n")
             instructionBundles.append(
                 self.bytesToInstruc(instructionBundle))
 
