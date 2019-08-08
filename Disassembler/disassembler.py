@@ -7,10 +7,6 @@ from os import listdir
 from os.path import isfile, join
 import time
 
-# Function declarations
-# ===========================================================================
-
-
 class disassembler:
 
     def __init__(self):
@@ -104,10 +100,8 @@ class disassembler:
         tokens = instruc.split("_")
         return tokens[0]
 
-    # Initialization
-    # ===========================================================================
-
-    def disassemble(self, inputDir, outputDir):
+    def disassemble(self, inputBytes):
+        self.linesToReturn = []
 
         # initialize known label number
         self.labels = []
@@ -119,8 +113,7 @@ class disassembler:
         self.secondOperandShouldBeLabel = ["MOV_reg_[const]"]
 
         # create byteArray with all file bytes
-        with open(inputDir, "rb") as f:
-            byte = f.read()
+        byte = inputBytes
 
         # create and load binaryToIncruc array
         with open(f"./instrucToBinary.json") as json_data:
@@ -131,37 +124,32 @@ class disassembler:
         self.instrucNumbers = []
         for instrucName in self.instrucNames:
             self.instrucNumbers.append(instrucDict[instrucName])
+        instructionBundles = []
+        i = 0
+        while(i < len(byte)):
+            instrucLayout = self.binaryToInstrucLayout(byte[i])
+            layoutTokens = instrucLayout.split("_")
 
-        # Start of main program
-        # ===========================================================================
+            instructionBundle = []
+            for x in range(len(layoutTokens)):
+                instructionBundle.append(byte[i + x])
 
-        with open(outputDir, "w") as output:
-            instructionBundles = []
-            i = 0
-            while(i < len(byte)):
-                instrucLayout = self.binaryToInstrucLayout(byte[i])
-                layoutTokens = instrucLayout.split("_")
+            instructionBundles.append(
+                self.bytesToInstruc(instructionBundle))
 
-                instructionBundle = []
-                for x in range(len(layoutTokens)):
-                    instructionBundle.append(byte[i + x])
+            # sets i to location of next instruction.
+            i = i + len(layoutTokens)
 
-                # write assembly line to output file
-                # output.write(self.bytesToInstruc(instructionBundle) + "\n")
-                instructionBundles.append(
-                    self.bytesToInstruc(instructionBundle))
+        i = 0
+        for x in range(len(instructionBundles)):
 
-                # sets i to location of next instruction.
-                i = i + len(layoutTokens)
+            if i in self.labelValues:
+                self.linesToReturn.append(self.getLabelFor(i) + ":" + "\n")
 
-            i = 0
-            for x in range(len(instructionBundles)):
+            self.linesToReturn.append("\t" + instructionBundles[x] + "\n")
 
-                if i in self.labelValues:
-                    output.write(self.getLabelFor(i) + ":" + "\n")
+            # keep track of what bytes we're on
+            bundleTokens = instructionBundles[x].split(" ")
+            i = i + len(bundleTokens)
 
-                output.write("\t" + instructionBundles[x] + "\n")
-
-                # keep track of what bytes we're on
-                bundleTokens = instructionBundles[x].split(" ")
-                i = i + len(bundleTokens)
+        return self.linesToReturn

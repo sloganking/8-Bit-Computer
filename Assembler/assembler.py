@@ -7,9 +7,6 @@ from os import listdir
 from os.path import isfile, join
 import time
 
-# Function declarations
-# ===========================================================================
-
 
 class assembler:
 
@@ -39,7 +36,6 @@ class assembler:
 
         if "," in token:
             token = token.replace(",", "")
-        # print("token:   " + token)
         if self.RepresentsInt(token):
             if isAddress:
                 return "[const]"
@@ -67,30 +63,28 @@ class assembler:
         return instruc
 
     def getListOfLabels(self):
-        with open(self.inputDir) as labelInput:
-            self.listOfLabels = []
-            labelContent = labelInput.readlines()
-            for lx in range(0, len(labelContent)):
-                labelTokens = str.split(labelContent[lx])
-                if len(labelTokens) > 0:
-                    if str(labelTokens[0][-1:]) == ":":
-                        self.listOfLabels.append(
-                            labelTokens[0].replace(":", ""))
-            return self.listOfLabels
+        self.listOfLabels = []
+        labelContent = self.linesToAssemble
+        for lx in range(0, len(labelContent)):
+            labelTokens = str.split(labelContent[lx])
+            if len(labelTokens) > 0:
+                if str(labelTokens[0][-1:]) == ":":
+                    self.listOfLabels.append(
+                        labelTokens[0].replace(":", ""))
+        return self.listOfLabels
 
     def getLabelNumbers(self):
         self.labelNumbers = []
-        with open(self.inputDir) as labelInput:
-            currentByte = 0
-            labelContent = labelInput.readlines()
-            for lx in range(0, len(labelContent)):
+        currentByte = 0
+        labelContent = self.linesToAssemble
+        for lx in range(0, len(labelContent)):
 
-                labelTokens = str.split(labelContent[lx])
-                if len(labelTokens) > 0:
-                    if str(labelTokens[0][-1:]) == ":":
-                        self.labelNumbers.append(currentByte)
-                    elif self.instrucToBinary(self.tokensToInstruc(labelTokens)):
-                        currentByte += len(labelTokens)
+            labelTokens = str.split(labelContent[lx])
+            if len(labelTokens) > 0:
+                if str(labelTokens[0][-1:]) == ":":
+                    self.labelNumbers.append(currentByte)
+                elif self.instrucToBinary(self.tokensToInstruc(labelTokens)):
+                    currentByte += len(labelTokens)
         return self.labelNumbers
 
     def isALabel(self, string):
@@ -129,49 +123,39 @@ class assembler:
         else:
             return int(const.replace(",", ""))
 
-    # Initialization
-    # ===========================================================================
+    """
+    takes list of file lines and returns a bytearray of corresponding machine code
+    """
+    def assemble(self, linesToAssemble):
 
-    # removeAllFilesInDirectory("./Output/")
+        self.linesToAssemble = linesToAssemble
+        self.content = linesToAssemble
+        self.listOfLabels = self.getListOfLabels()
+        self.labelNumbers = self.getLabelNumbers()
+        self.machineCodeBytes = bytearray()
 
-    def assemble(self, inputDir, outputDir):
-        with open(outputDir, "wb") as output:
-            with open(inputDir) as input:
-                self.inputDir = inputDir
-                self.content = input.readlines()
-                self.listOfLabels = self.getListOfLabels()
-                self.labelNumbers = self.getLabelNumbers()
-                self.machineCodeBytes = bytearray()
+        for x in range(0, len(self.content)):
+            tokens = str.split(self.content[x])
+            instruc = self.tokensToInstruc(tokens)
+            instructionBytes = []
 
-                # Start of main program
-                # ===========================================================================
-
-                for x in range(0, len(self.content)):
-                    tokens = str.split(self.content[x])
-                    instruc = self.tokensToInstruc(tokens)
-                    instructionBytes = []
-
-                    # if "tokens" represnt a valid instruction
-                    if self.instrucToBinary(self.tokensToInstruc(tokens)):
+            # if "tokens" represnt a valid instruction
+            if self.instrucToBinary(self.tokensToInstruc(tokens)):
+                self.machineCodeBytes.append(
+                    int(self.instrucToBinary(self.tokensToInstruc(tokens))))
+                if len(tokens) > 1:
+                    if "reg" in self.returnType(tokens[1]):
                         self.machineCodeBytes.append(
-                            int(self.instrucToBinary(self.tokensToInstruc(tokens))))
-                        if len(tokens) > 1:
-                            if "reg" in self.returnType(tokens[1]):
-                                self.machineCodeBytes.append(
-                                    self.regToBinary(tokens[1]))
-                            elif "const" in self.returnType(tokens[1]):
-                                self.machineCodeBytes.append(
-                                    self.constToBinary(tokens[1]))
-                        if len(tokens) > 2:
-                            if "reg" in self.returnType(tokens[2]):
-                                self.machineCodeBytes.append(
-                                    self.regToBinary(tokens[2]))
-                            elif "const" in self.returnType(tokens[2]):
-                                self.machineCodeBytes.append(
-                                    self.constToBinary(tokens[2]))
+                            self.regToBinary(tokens[1]))
+                    elif "const" in self.returnType(tokens[1]):
+                        self.machineCodeBytes.append(
+                            self.constToBinary(tokens[1]))
+                if len(tokens) > 2:
+                    if "reg" in self.returnType(tokens[2]):
+                        self.machineCodeBytes.append(
+                            self.regToBinary(tokens[2]))
+                    elif "const" in self.returnType(tokens[2]):
+                        self.machineCodeBytes.append(
+                            self.constToBinary(tokens[2]))
 
-                output.write(self.machineCodeBytes)
-                print("Assembler finished")
-                print("wrote " + str(len(self.machineCodeBytes)) +
-                      " bytes to output")
-                # print(self.machineCodeBytes)
+        return self.machineCodeBytes
