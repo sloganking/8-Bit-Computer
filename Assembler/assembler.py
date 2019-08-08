@@ -10,13 +10,7 @@ class assembler:
     def __init__(self):
         pass
 
-    def removeAllFilesInDirectory(self, directory):
-        onlyfiles = [f for f in listdir(
-            directory) if isfile(join(directory, f))]
-        for i in range(0, len(onlyfiles)):
-            os.remove(f"{directory}{onlyfiles[i]}")
-
-    def RepresentsInt(self, s):
+    def __RepresentsInt(self, s):
         try:
             int(s)
             return True
