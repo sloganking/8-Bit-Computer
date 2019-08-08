@@ -1,6 +1,3 @@
-# Imports
-# ===========================================================================
-
 import json
 import os
 from os import listdir
@@ -13,13 +10,13 @@ class disassembler:
         pass
 
     # takes machineCode bytes and returns a string of assembly
-    def bytesToInstruc(self, bytes: list):
-        params = self.binaryToInstrucLayout(bytes[0])
+    def __bytesToInstruc(self, bytes: list):
+        params = self.__binaryToInstrucLayout(bytes[0])
         tokenedParams = params.split("_")
 
         instructionString = ""
         instructionString = instructionString + \
-            self.nameOfInstuc(self.binaryToInstrucLayout(bytes[0]))
+            self.__nameOfInstuc(self.__binaryToInstrucLayout(bytes[0]))
 
         # x can be 1 and 2
         for x in range(1, 3):
@@ -32,22 +29,22 @@ class disassembler:
                     instructionString = instructionString + ","
 
                 if params in self.firstOperandShouldBeLabel and x == 1:
-                    operand = self.getLabelFor(bytes[x])
+                    operand = self.__getLabelFor(bytes[x])
                     if operandIsAddress:
                         operand = "[" + operand + "]"
                     instructionString = instructionString + " " + operand
 
                 elif params in self.secondOperandShouldBeLabel and x == 2:
-                    operand = self.getLabelFor(bytes[x])
+                    operand = self.__getLabelFor(bytes[x])
                     if operandIsAddress:
                         operand = "[" + operand + "]"
                     instructionString = instructionString + " " + operand
 
                 elif "reg" in tokenedParams[x]:
-                    if self.binaryIsReg(bytes[x]):
+                    if self.__binaryIsReg(bytes[x]):
                         operand = tokenedParams[x]
                         operand = operand.replace(
-                            "reg", self.binaryToReg(bytes[x]))
+                            "reg", self.__binaryToReg(bytes[x]))
                         if operandIsAddress:
                             operand = "[" + operand + "]"
                         instructionString = instructionString + " " + operand
@@ -60,7 +57,7 @@ class disassembler:
 
         return instructionString
 
-    def getLabelFor(self, number: int):
+    def __getLabelFor(self, number: int):
 
         # existing label
         if number in self.labelValues:
@@ -71,7 +68,7 @@ class disassembler:
             self.labelValues.append(number)
             return "l" + str(len(self.labels) - 1)
 
-    def binaryToReg(self, binary: int):
+    def __binaryToReg(self, binary: int):
         if binary == 0:
             return "A"
         elif binary == 1:
@@ -83,20 +80,20 @@ class disassembler:
         else:
             assert (False), f"No reg for given binary: {binary}"
 
-    def binaryIsReg(self, binary: int):
+    def __binaryIsReg(self, binary: int):
         try:
-            self.binaryToReg(binary)
+            self.__binaryToReg(binary)
             return True
         except:
             return False
 
     # returns string of instruction's name with it's paramater(s) types
 
-    def binaryToInstrucLayout(self, binary: int):
+    def __binaryToInstrucLayout(self, binary: int):
         binary = str(binary)
         return self.instrucNames[self.instrucNumbers.index(binary)]
 
-    def nameOfInstuc(self, instruc: str):
+    def __nameOfInstuc(self, instruc: str):
         tokens = instruc.split("_")
         return tokens[0]
 
@@ -127,7 +124,7 @@ class disassembler:
         instructionBundles = []
         i = 0
         while(i < len(byte)):
-            instrucLayout = self.binaryToInstrucLayout(byte[i])
+            instrucLayout = self.__binaryToInstrucLayout(byte[i])
             layoutTokens = instrucLayout.split("_")
 
             instructionBundle = []
@@ -135,7 +132,7 @@ class disassembler:
                 instructionBundle.append(byte[i + x])
 
             instructionBundles.append(
-                self.bytesToInstruc(instructionBundle))
+                self.__bytesToInstruc(instructionBundle))
 
             # sets i to location of next instruction.
             i = i + len(layoutTokens)
@@ -144,7 +141,7 @@ class disassembler:
         for x in range(len(instructionBundles)):
 
             if i in self.labelValues:
-                self.linesToReturn.append(self.getLabelFor(i) + ":" + "\n")
+                self.linesToReturn.append(self.__getLabelFor(i) + ":" + "\n")
 
             self.linesToReturn.append("\t" + instructionBundles[x] + "\n")
 
