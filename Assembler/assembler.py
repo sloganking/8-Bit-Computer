@@ -1,6 +1,3 @@
-# Imports
-# ===========================================================================
-
 import json
 import os
 from os import listdir
