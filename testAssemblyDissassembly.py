@@ -13,33 +13,17 @@ class testAssembler(unittest.TestCase):
         myAssembler = assembler()
         myDisassembler = disassembler()
 
-        # myAssembler.assemble("./test/test.asm",
-        #                      "./test/machineCode.bin")
+        with open("./test/test.asm", "r") as sourceAssemblyCode:
+            codeLines = sourceAssemblyCode.readlines()
 
-        # myDisassembler.disassemble(
-        #     "./test/machineCode.bin", "./test/test2.asm")
+        machineCode1 = myAssembler.assemble(codeLines)
 
-        # myAssembler.assemble("./test/test2.asm",
-        #                      "./test/machineCode2.bin")
+        reAssembled1 = myDisassembler.disassemble(machineCode1)
 
-        # with open("./test/machineCode.bin", "rb") as f:
-        #     machineCode1 = f.read()
+        machineCode2 = myAssembler.assemble(reAssembled1)
 
-        # with open("./test/machineCode2.bin", "rb") as f:
-        #     machineCode2 = f.read()
-
-        # print("Byte1: ", machineCode1)
-        # print("Byte2: ", machineCode2)
-
-        # numpy.testing.assert_array_equal(
-        #     machineCode1, machineCode2, "Assembled code is not the same after disassembly and reassembly")
-
-
-        with open("./test/test.asm", "r") as assemblyCode:
-            codeLines = assemblyCode.readlines()
-
-        machineCode = myAssembler.assemble(codeLines)
-        print(machineCode)
+        numpy.testing.assert_array_equal(
+            machineCode1, machineCode2, "Assembled code is not the same after disassembly and reassembly")
 
 if __name__ == '__main__':
     unittest.main()
