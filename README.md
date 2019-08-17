@@ -11,7 +11,17 @@ The design of this computer was heavily inspired by ideas from both Ben Eater's 
 
 ### Redstone [Completed]
 ![redstone_implementation](./Assets/redstone_implementation.png)
-[link to video](https://youtu.be/lqPx-vPoeg0)
+[Video of demo program](https://youtu.be/lqPx-vPoeg0)
+
+[World download](./Assets/CPU2.zip)
+
+Computer located in world at:
+
+X: ``1608``
+
+Y: ``207``
+
+Z: ``1512``
 
 ## Block Diagram
 ![Diagram](https://i.imgur.com/DOcqbF5.png)
