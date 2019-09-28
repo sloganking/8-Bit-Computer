@@ -1,4 +1,4 @@
-# 8-Bit-Computer-Documentation
+# 8-Bit-Computer
 
 This project aims to document how my 8-bit computer works, to provide example programs that it can run, and to provide visual examples of those programs running.
 
