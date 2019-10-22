@@ -6,6 +6,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 import time
+import json
 
 # Function declarations
 # ===========================================================================
@@ -103,9 +104,8 @@ with open(f"./Microcode.txt") as input:
     with open(f"./Output/instrucToBinary.json", "w") as output:
         with open(f"./Output/microcode.bin", "wb") as micOutput:
             content = input.readlines()
+            outputDict = {}
 
-            # Start JSON object
-            print(f"{{", file=output)
             microAddress = 0
             for x in range(0, len(content)):
                 tokens = str.split(content[x])
@@ -117,10 +117,8 @@ with open(f"./Microcode.txt") as input:
 
                         # if last char of first token is ":", instruction detected
                         if tokens[0][len(tokens[0]) - 1] == ":":
-                            strToPrint = "\t\"" + \
-                                tokens[0][:-1] + "\":" + f"\"{microAddress}\""
-                            if thereIsAnotherInsturction():
-                                strToPrint = strToPrint + ","
+                            outputDict[tokens[0][:-1]] = microAddress
+                                
                         # assemble micro instruction
                         else:
                             microAddress += 1   # keeps track of addresses for instrucToBinary.json
@@ -132,10 +130,5 @@ with open(f"./Microcode.txt") as input:
                                     "Error: invalid micro instruction given on line: ", x + 1)
                                 break
 
-                # If something to print
-                if strToPrint != "":
-                    strToPrint = f"{strToPrint}"
-                    print(f"{strToPrint}", file=output)
-
-            # End JSON object
-            print(f"}}", file=output)
+            # save dict to output json file
+            json.dump(outputDict, output, indent=4)
