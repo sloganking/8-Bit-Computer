@@ -12,6 +12,9 @@ class disassembler:
         # index in array == machineCode
         self.regs = ["A", "B", "C", "D"]
 
+        self.firstOperandShouldBeLabel = ["JMP_const", "JNC_const", "JC_const", "JNZ_const", "JZ_const"]
+        self.secondOperandShouldBeLabel = ["MOV_reg_[const]"]
+
     # takes machineCode bytes and returns a string of assembly
     def __bytesToInstruc(self, bytes: list):
         params = self.__binaryToInstrucLayout(bytes[0])
@@ -100,11 +103,6 @@ class disassembler:
         # initialize known label number
         self.labels = []
         self.labelValues = []
-
-        self.firstOperandShouldBeLabel = ["JMP_const",
-                                          "JNC_const", "JC_const", "JNZ_const", "JZ_const"]
-
-        self.secondOperandShouldBeLabel = ["MOV_reg_[const]"]
 
         # create byteArray with all file bytes
         byte = inputBytes
