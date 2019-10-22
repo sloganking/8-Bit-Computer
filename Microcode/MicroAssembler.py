@@ -105,6 +105,7 @@ with open(f"./Microcode.txt") as input:
 
                         # if last char of first token is ":", instruction detected
                         if tokens[0][len(tokens[0]) - 1] == ":":
+                            # save instruction's location for output json file
                             outputDict[tokens[0][:-1]] = microAddress
                                 
                         # assemble micro instruction
