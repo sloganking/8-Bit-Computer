@@ -17,18 +17,6 @@ def removeAllFilesInDirectory(directory):
     for i in range(0, len(onlyfiles)):
         os.remove(f"{directory}{onlyfiles[i]}")
 
-
-def thereIsAnotherInsturction():
-    x2 = x + 1
-    while x2 < len(content):
-        tokens2 = str.split(content[x2])
-        if len(tokens2) > 0:
-            if tokens2[0][len(tokens2[0]) - 1] == ":":
-                return True
-        x2 = x2 + 1
-    return False
-
-
 def fullMicInstrucToBinary(tokens):
     microInstruc = 0
     for x in range(0, len(tokens)):
