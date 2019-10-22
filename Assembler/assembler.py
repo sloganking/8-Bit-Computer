@@ -8,7 +8,9 @@ import time
 class assembler:
 
     def __init__(self):
-        pass
+        # registers in ISA.
+        # index in array == machineCode
+        self.regs = ["A", "B", "C", "D"]
 
     def __RepresentsInt(self, s):
         try:
@@ -18,7 +20,6 @@ class assembler:
             return False
 
     def __returnType(self, token):
-        regCharacters = ["A", "B", "C", "D"]
         isAddress = False
         if token.startswith('[') and token.endswith(']'):
             isAddress = True
@@ -32,7 +33,7 @@ class assembler:
                 return "[const]"
             else:
                 return "const"
-        elif len(token) == 1 and token in regCharacters:
+        elif len(token) == 1 and token in self.regs:
             if isAddress:
                 return "[reg]"
             else:
@@ -93,9 +94,8 @@ class assembler:
                 return False
 
     def __regToBinary(self, reg):
-        regs = ["A","B","C","D"]
         try:
-            return regs.index(reg)
+            return self.regs.index(reg)
         except:
             return False
 
