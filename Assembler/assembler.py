@@ -8,7 +8,10 @@ import time
 class assembler:
 
     def __init__(self):
-        pass
+        
+        # registers in ISA.
+        # index in array == machineCode
+        self.regs = ["A", "B", "C", "D"]
 
     def __RepresentsInt(self, s):
         try:
@@ -18,7 +21,6 @@ class assembler:
             return False
 
     def __returnType(self, token):
-        regCharacters = ["A", "B", "C", "D"]
         isAddress = False
         if token.startswith('[') and token.endswith(']'):
             isAddress = True
@@ -32,7 +34,7 @@ class assembler:
                 return "[const]"
             else:
                 return "const"
-        elif len(token) == 1 and token in regCharacters:
+        elif len(token) == 1 and token in self.regs:
             if isAddress:
                 return "[reg]"
             else:
@@ -93,16 +95,9 @@ class assembler:
                 return False
 
     def __regToBinary(self, reg):
-        reg = reg.replace(",", "")
-        if reg == "A":
-            return 0
-        elif reg == "B":
-            return 1
-        elif reg == "C":
-            return 2
-        elif reg == "D":
-            return 3
-        else:
+        try:
+            return self.regs.index(reg)
+        except:
             return False
 
     def __constToBinary(self, const):
@@ -132,21 +127,19 @@ class assembler:
 
             # if "tokens" represnt a valid instruction
             if self.__instrucToBinary(self.__tokensToInstruc(tokens)):
+
+                # append instruction opcode
                 self.machineCodeBytes.append(
                     int(self.__instrucToBinary(self.__tokensToInstruc(tokens))))
-                if len(tokens) > 1:
-                    if "reg" in self.__returnType(tokens[1]):
-                        self.machineCodeBytes.append(
-                            self.__regToBinary(tokens[1]))
-                    elif "const" in self.__returnType(tokens[1]):
-                        self.machineCodeBytes.append(
-                            self.__constToBinary(tokens[1]))
-                if len(tokens) > 2:
-                    if "reg" in self.__returnType(tokens[2]):
-                        self.machineCodeBytes.append(
-                            self.__regToBinary(tokens[2]))
-                    elif "const" in self.__returnType(tokens[2]):
-                        self.machineCodeBytes.append(
-                            self.__constToBinary(tokens[2]))
+
+                # append operands
+                for x1 in range(1,3):
+                    if len(tokens) > x1:
+                        if "reg" in self.__returnType(tokens[x1]):
+                            self.machineCodeBytes.append(
+                                self.__regToBinary(tokens[x1]))
+                        elif "const" in self.__returnType(tokens[x1]):
+                            self.machineCodeBytes.append(
+                                self.__constToBinary(tokens[x1]))
 
         return self.machineCodeBytes
