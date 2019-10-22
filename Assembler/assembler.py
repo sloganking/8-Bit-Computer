@@ -8,6 +8,7 @@ import time
 class assembler:
 
     def __init__(self):
+        
         # registers in ISA.
         # index in array == machineCode
         self.regs = ["A", "B", "C", "D"]
@@ -126,8 +127,12 @@ class assembler:
 
             # if "tokens" represnt a valid instruction
             if self.__instrucToBinary(self.__tokensToInstruc(tokens)):
+
+                # append instruction opcode
                 self.machineCodeBytes.append(
                     int(self.__instrucToBinary(self.__tokensToInstruc(tokens))))
+
+                # append operands
                 for x1 in range(1,3):
                     if len(tokens) > x1:
                         if "reg" in self.__returnType(tokens[x1]):
