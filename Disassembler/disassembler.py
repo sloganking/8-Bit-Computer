@@ -7,7 +7,10 @@ import time
 class disassembler:
 
     def __init__(self):
-        pass
+        
+        # registers in ISA.
+        # index in array == machineCode
+        self.regs = ["A", "B", "C", "D"]
 
     # takes machineCode bytes and returns a string of assembly
     def __bytesToInstruc(self, bytes: list):
@@ -69,15 +72,9 @@ class disassembler:
             return "l" + str(len(self.labels) - 1)
 
     def __binaryToReg(self, binary: int):
-        if binary == 0:
-            return "A"
-        elif binary == 1:
-            return "B"
-        elif binary == 2:
-            return "C"
-        elif binary == 3:
-            return "D"
-        else:
+        try:
+            return self.regs[binary]
+        except:
             assert (False), f"No reg for given binary: {binary}"
 
     def __binaryIsReg(self, binary: int):
