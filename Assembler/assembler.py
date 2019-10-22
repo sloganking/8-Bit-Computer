@@ -93,16 +93,10 @@ class assembler:
                 return False
 
     def __regToBinary(self, reg):
-        reg = reg.replace(",", "")
-        if reg == "A":
-            return 0
-        elif reg == "B":
-            return 1
-        elif reg == "C":
-            return 2
-        elif reg == "D":
-            return 3
-        else:
+        regs = ["A","B","C","D"]
+        try:
+            return regs.index(reg)
+        except:
             return False
 
     def __constToBinary(self, const):
