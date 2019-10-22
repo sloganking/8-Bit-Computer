@@ -128,19 +128,13 @@ class assembler:
             if self.__instrucToBinary(self.__tokensToInstruc(tokens)):
                 self.machineCodeBytes.append(
                     int(self.__instrucToBinary(self.__tokensToInstruc(tokens))))
-                if len(tokens) > 1:
-                    if "reg" in self.__returnType(tokens[1]):
-                        self.machineCodeBytes.append(
-                            self.__regToBinary(tokens[1]))
-                    elif "const" in self.__returnType(tokens[1]):
-                        self.machineCodeBytes.append(
-                            self.__constToBinary(tokens[1]))
-                if len(tokens) > 2:
-                    if "reg" in self.__returnType(tokens[2]):
-                        self.machineCodeBytes.append(
-                            self.__regToBinary(tokens[2]))
-                    elif "const" in self.__returnType(tokens[2]):
-                        self.machineCodeBytes.append(
-                            self.__constToBinary(tokens[2]))
+                for x1 in range(1,3):
+                    if len(tokens) > x1:
+                        if "reg" in self.__returnType(tokens[x1]):
+                            self.machineCodeBytes.append(
+                                self.__regToBinary(tokens[x1]))
+                        elif "const" in self.__returnType(tokens[x1]):
+                            self.machineCodeBytes.append(
+                                self.__constToBinary(tokens[x1]))
 
         return self.machineCodeBytes
