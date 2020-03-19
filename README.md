@@ -7,7 +7,7 @@ The design of this computer was heavily inspired by ideas from both Ben Eater's 
 
 ## Implementations
 ### Breadboard [WIP]
-![Breadboard](https://i.imgur.com/6quetop.jpg)
+![Breadboard](./Assets/breadboard.gif)
 
 ### Redstone [Completed]
 ![redstone_implementation](./Assets/redstone_implementation.png)
