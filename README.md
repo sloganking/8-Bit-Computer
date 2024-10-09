@@ -7,11 +7,12 @@ The design of this computer was heavily inspired by ideas from both Ben Eater's 
 
 ## Implementations
 ### Breadboard [WIP]
-![Breadboard](./Assets/breadboard.gif)
+
+https://github.com/user-attachments/assets/17860164-4c55-4206-9001-7120d09bc937
 
 ### Redstone [Completed]
-![redstone_implementation](./Assets/redstone_implementation.png)
-[Video of demo program](https://youtu.be/lqPx-vPoeg0)
+
+https://github.com/user-attachments/assets/e5253535-4fd7-4da7-8a7d-cf56126d6b56
 
 [World download](./Assets/CPU2.zip)
 
